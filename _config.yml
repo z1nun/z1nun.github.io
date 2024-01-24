@@ -6,7 +6,7 @@
 # Almost all the things in the website can be customized from here.
 # Changing title and description according to your website requirement is important.
 #
-title: Avocado
+title: 안녕하세요
 description: Avacado is a minimal jekyll theme to show off your skills online.
 email: john@doe.com # The contact form submission will be done to this email address.
 phone: +1-123-456-7890
@@ -15,7 +15,7 @@ default-image: /assets/images/avocado-cover.png # This image will be shown on sh
 
 # Author details shows up at the end of every article
 author:
-  name: John Doe
+  name: 강진원
   bio: "John is an astronaut. He likes to hang out with his friends when he's not in space. He writes his experiences here."
   image: /assets/images/author-image.jpg # Choose a 200x200px image and place it inside /images directory.
   facebook: https://facebook.com
@@ -42,7 +42,7 @@ paginate: 4
 paginate_path: /blog/page:num/
 
 # Define titles for the sections
-name: John Doe
+name: Jinwon Kang
 projects: I work
 
 # Jekyll will read contents inside _pages only if we tell it to
