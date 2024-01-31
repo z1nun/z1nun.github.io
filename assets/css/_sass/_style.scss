@@ -449,13 +449,11 @@ main {
 }
 
 .blog-index-title {
-  font-size: $base-fs * 1.1;
+  font-size: 1.6rem;
 }
 
 .double-u {
   font-size: $base-fs;
-  text-decoration-style: double;
-  text-decoration-line: underline;
 }
 
 #team {
@@ -478,8 +476,8 @@ main {
   }
 
   .team-image {
-    -webkit-filter: greyscale(0.9);
-    filter: grayscale(0.9);
+    // -webkit-filter: greyscale(0.9);
+    // filter: grayscale(0.9);
 
     -webkit-transition: 500ms -webkit-filter linear;
     -moz-transition: 500ms -moz-filter linear;
@@ -613,7 +611,7 @@ main {
     }
 
     a {
-      color:$brand-color
+      color: $brand-color;
     }
   }
 }

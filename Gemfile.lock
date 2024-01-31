@@ -12,7 +12,6 @@ GEM
     ffi (1.16.3)
     forwardable-extended (2.6.0)
     google-protobuf (3.25.2)
-    google-protobuf (3.25.2-arm64-darwin)
     http_parser.rb (0.8.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -85,7 +84,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.3.0p0
 
 BUNDLED WITH
    2.5.5

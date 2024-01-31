@@ -6,18 +6,18 @@
 # Almost all the things in the website can be customized from here.
 # Changing title and description according to your website requirement is important.
 #
-title: 안녕하세요
-description: Avacado is a minimal jekyll theme to show off your skills online.
-email: john@doe.com # The contact form submission will be done to this email address.
-phone: +1-123-456-7890
+title: Sunrise
+description:
+email: dkssud8253@gmail.com # The contact form submission will be done to this email address.
+phone: 010-8250-1433
 url: https://avocado.jekyll-themes.com
-default-image: /assets/images/avocado-cover.png # This image will be shown on sharing any page on social media. For example: Homepage, about page etc. This image should be bigger than 200x200px. This image is not used for posts. Posts use their own image mentioned in individual posts.
+default-image: /assets/img/sunset.jpg # This image will be shown on sharing any page on social media. For example: Homepage, about page etc. This image should be bigger than 200x200px. This image is not used for posts. Posts use their own image mentioned in individual posts.
 
 # Author details shows up at the end of every article
 author:
-  name: 강진원
-  bio: "John is an astronaut. He likes to hang out with his friends when he's not in space. He writes his experiences here."
-  image: /assets/images/author-image.jpg # Choose a 200x200px image and place it inside /images directory.
+  name: 지넌
+  bio: "안녕하세요. 프론트엔드 개발자입니다."
+  image: /assets/images/profile.jpeg # Choose a 200x200px image and place it inside /images directory.
   facebook: https://facebook.com
   twitter: https://twitter.com
   quora: https://www.quora.com/

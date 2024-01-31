@@ -1,24 +1,23 @@
 - title: Home
-  link: '/'
-  
+  link: "/"
+
 - title: About
-  link: '/about/'
+  link: "/about/"
 
 - title: Contact
-  link: '/contact/'
-  
-- title: Blog
-  link: '/blog/'
-  
-- title: Categories
-  link: '/categories/'
+  link: "/contact/"
 
-- title: Portfolio
-  dropdown:
-    - title: Testimonials
-      link: /testimonials/
-    - title: Item
-      link: /portfolio/
-    - title: Another Item
-      link: /portfolio/
+- title: Blog
+  link: "/blog/"
+
+- title: Categories
+  link: "/categories/"
+# - title: Portfolio
+#   dropdown:
+#     - title: Testimonials
+#       link: /testimonials/
+#     - title: Item
+#       link: /portfolio/
+#     - title: Another Item
+#       link: /portfolio/
 

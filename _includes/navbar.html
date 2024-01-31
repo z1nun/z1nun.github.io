@@ -2,11 +2,11 @@
   <div class="container">
     <a class="navbar-brand" href="{{'/' | relative_url}}">
       <img
-        src="{{'/assets/img/apple-icon-60x60.png' | relative_url}}"
+        src="{{'/assets/img/sunset.jpg' | relative_url}}"
         class="d-inline-block align-top logo"
         alt="{{site.title}}"
       />
-      Avocado
+      Sunrise
     </a>
     <button
       class="navbar-toggler"
@@ -36,16 +36,12 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% for i in item.dropdown %}
-            <a class="dropdown-item nav-link" href="{{i.link | relative_url}}"
-              >{{i.title}}</a
-            >
+            <a class="dropdown-item nav-link" href="{{i.link | relative_url}}">{{i.title}}</a>
             {% endfor %}
           </div>
         </li>
         {% else %}
-        <a
-          class="nav-item nav-link {% if page.url == item.link %}active{% endif %}"
-          href="{{item.link | relative_url}}"
+        <a class="nav-item nav-link {% if page.url == item.link %}active{% endif %}" href="{{item.link | relative_url}}"
           >{{item.title}}</a
         >
         {% endif %} {% endfor %}
@@ -53,4 +49,3 @@
     </div>
   </div>
 </nav>
-
