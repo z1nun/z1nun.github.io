@@ -1,6 +1,6 @@
-- name: React
+- name: HTML/CSS
   designation:
-  image: /assets/images/stackIcon/React-icon.png
+  image: /assets/images/stackIcon/HTML.png
   twitter: "#"
   facebook: "#"
   linkedin: "#"
@@ -15,6 +15,13 @@
 - name: TypeScript
   designation:
   image: /assets/images/stackIcon/Typescript.webp
+  twitter: "#"
+  facebook: "#"
+  linkedin: "#"
+
+- name: React
+  designation:
+  image: /assets/images/stackIcon/React-icon.png
   twitter: "#"
   facebook: "#"
   linkedin: "#"
@@ -43,13 +50,6 @@
 - name: Express
   designation:
   image: /assets/images/stackIcon/Express.png
-  twitter: "#"
-  facebook: "#"
-  linkedin: "#"
-
-- name: emotion
-  designation:
-  image: /assets/images/stackIcon/emotion.png
   twitter: "#"
   facebook: "#"
   linkedin: "#"
