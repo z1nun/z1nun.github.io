@@ -6,11 +6,11 @@
       </div>
     </div>
     <div class="row">
-      {% for post in site.posts limit: 3 %}
+      {% for post in site.posts limit: 9 %}
       <div class="col-md-4">
         <a href="{{post.url | relative_url}}" class="nostyle">
           <div class="cards rev">
-            <img src="{{post.image | relative_url}}" alt="{{post.title}}">
+            <img src="{{post.image | relative_url}}" alt="{{post.title}}" class="card-image" />
             <div class="card-body">
               <span><small>{{post.date | date_to_string }}</small></span>
               <h5>{{post.title}}</h5>
