@@ -1,27 +1,55 @@
 - name: React
   designation:
-  image: /assets/images/React-icon.png
+  image: /assets/images/stackIcon/React-icon.png
   twitter: "#"
   facebook: "#"
   linkedin: "#"
 
-- name: Mary Clay
-  designation: Creative Director
-  image: /assets/images/a-l-l-e-f-v-i-n-i-c-i-u-s-173820-unsplash.jpg
+- name: JavaScript
+  designation:
+  image: /assets/images/stackIcon/Javascript.png
   twitter: "#"
   facebook: "#"
   linkedin: "#"
 
-- name: Shawn Pauley
-  designation: Designer / Developer
-  image: /assets/images/warren-wong-242286-unsplash.jpg
+- name: TypeScript
+  designation:
+  image: /assets/images/stackIcon/Typescript.webp
   twitter: "#"
   facebook: "#"
   linkedin: "#"
 
-- name: Jeanne Wolf
-  designation: Marketing Head
-  image: /assets/images/christian-ferrer-594620-unsplash.jpg
+- name: styled-components
+  designation:
+  image: /assets/images/stackIcon/Styled-components.png
+  twitter: "#"
+  facebook: "#"
+  linkedin: "#"
+
+- name: emotion
+  designation:
+  image: /assets/images/stackIcon/emotion.png
+  twitter: "#"
+  facebook: "#"
+  linkedin: "#"
+
+- name: Tanstack Query
+  designation:
+  image: /assets/images/stackIcon/TanstackQuery.png
+  twitter: "#"
+  facebook: "#"
+  linkedin: "#"
+
+- name: Express
+  designation:
+  image: /assets/images/stackIcon/Express.png
+  twitter: "#"
+  facebook: "#"
+  linkedin: "#"
+
+- name: emotion
+  designation:
+  image: /assets/images/stackIcon/emotion.png
   twitter: "#"
   facebook: "#"
   linkedin: "#"
