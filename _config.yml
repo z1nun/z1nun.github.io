@@ -17,7 +17,7 @@ default-image: /assets/img/sunset.jpg # This image will be shown on sharing any 
 author:
   name: 지넌
   bio: "안녕하세요. 프론트엔드 개발자입니다."
-  image: /assets/images/profile.jpeg # Choose a 200x200px image and place it inside /images directory.
+  image: /assets/images/profile/profile1.png # Choose a 200x200px image and place it inside /images directory.
   facebook: https://facebook.com
   twitter: https://twitter.com
   quora: https://www.quora.com/

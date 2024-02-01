@@ -1,6 +1,17 @@
 [
   
     {
+      "category" : "state",
+      "title"    : "Context API",
+      "description": "StyleX combines the strengths and avoids the weaknesses of both inline styles...",
+      "content": "StyleX combines the strengths and avoids the weaknesses of both inline styles...",
+      "url"      : "/blog/ContextAPI/",
+      "image"    : "/assets/images/post/contextAPI.png",
+      "author"   : "지넌"
+    } 
+    ,
+  
+    {
       "category" : "CSS",
       "title"    : "StyleX",
       "description": "StyleX combines the strengths and avoids the weaknesses of both inline styles...",
