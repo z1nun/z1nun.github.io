@@ -1,11 +1,33 @@
 [
   
     {
-      "category" : "Project Q",
+      "category" : "NextJs",
+      "title"    : "Layout",
+      "description": "Layout여러 페이지에서 동일한 Layout을 사용할 수 있도록 component를 구성하는 기능을 제공한다.inex, footer 등등...",
+      "content": "Layout여러 페이지에서 동일한 Layout을 사용할 수 있도록 component를 구성하는 기능을 제공한다.inex, footer 등등...",
+      "url"      : "/blog/Nextjs-Layout/",
+      "image"    : "/assets/images/post/NextJs14.webp",
+      "author"   : "지넌"
+    } 
+    ,
+  
+    {
+      "category" : "NextJs",
+      "title"    : "NextJs 14",
+      "description": "Next.jsNextjs는 풀스택 웹 어플리케이션을 구축하기 위한 React 프레임워크 이다.React component를 사용하여 사용자...",
+      "content": "Next.jsNextjs는 풀스택 웹 어플리케이션을 구축하기 위한 React 프레임워크 이다.React component를 사용하여 사용자...",
+      "url"      : "/blog/Nextjs/",
+      "image"    : "/assets/images/post/NextJs14.webp",
+      "author"   : "지넌"
+    } 
+    ,
+  
+    {
+      "category" : "Project",
       "title"    : "새로운 팀원과의 협업 시작",
       "description": "프론트엔드 개발자로 일한 지 7개월이 되었습니다. 지난 7개월을 돌아보면 직장 생활에 대한 적응과 업무를 핑계로 스터디와 개발 블로그 업데...",
       "content": "프론트엔드 개발자로 일한 지 7개월이 되었습니다. 지난 7개월을 돌아보면 직장 생활에 대한 적응과 업무를 핑계로 스터디와 개발 블로그 업데...",
-      "url"      : "/blog/%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%8C%80%EC%9B%90%EA%B3%BC%EC%9D%98-%ED%98%91%EC%97%85-%EC%8B%9C%EC%9E%91/",
+      "url"      : "/blog/%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%8C%80%EC%9B%90%EA%B3%BC%EC%9D%98-%ED%98%91%EC%97%85-%EC%8B%9C%EC%9E%91-copy/",
       "image"    : "/assets/images/post/NewTeam.jpeg",
       "author"   : "지넌"
     } 

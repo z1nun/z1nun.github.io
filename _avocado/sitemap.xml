@@ -9,8 +9,16 @@
 <lastmod>2024-02-01T00:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/blog/%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%8C%80%EC%9B%90%EA%B3%BC%EC%9D%98-%ED%98%91%EC%97%85-%EC%8B%9C%EC%9E%91/</loc>
+<loc>http://localhost:4000/blog/%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%8C%80%EC%9B%90%EA%B3%BC%EC%9D%98-%ED%98%91%EC%97%85-%EC%8B%9C%EC%9E%91-copy/</loc>
 <lastmod>2024-02-02T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/blog/Nextjs/</loc>
+<lastmod>2024-02-05T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/blog/Nextjs-Layout/</loc>
+<lastmod>2024-02-14T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/about/</loc>
@@ -35,5 +43,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/testimonials/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/page2/</loc>
 </url>
 </urlset>
