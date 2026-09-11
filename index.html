@@ -887,23 +887,40 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   /* ===== 모바일 최적화 ===== */
   @media (max-width: 640px) {
-    .container { padding: 16px 14px 60px; }
-    header { padding: 30px 16px 24px; border-radius: 0 0 18px 18px; }
-    header h1 { font-size: 1.35rem; }
-    h2 { font-size: 1.15rem; margin: 36px 0 10px; }
-    #map { height: 58vh; max-height: 500px; min-height: 320px; border-radius: 14px; }
-    .builder { padding: 12px; border-radius: 14px; }
+    .container { padding: 14px 12px 56px; }
+    header { padding: 26px 16px 20px; border-radius: 0 0 16px 16px; }
+    header h1 { font-size: 1.3rem; }
+    h2 { font-size: 1.12rem; margin: 30px 0 10px; }
+    #map { height: 52vh; max-height: 460px; min-height: 300px; border-radius: 14px; }
+
+    /* 코스 빌더: 카테고리 제목을 한 줄 차지하게 → 칩이 깔끔하게 정렬됨 */
+    .builder { padding: 12px 12px 10px; border-radius: 14px; }
+    .course-bar { padding: 7px; gap: 5px; min-height: 48px; margin-bottom: 10px; }
+    .pal-group { gap: 5px; margin-bottom: 10px; }
+    .pal-title { flex: 0 0 100%; min-width: 0; margin-bottom: -1px; font-size: 0.75rem; }
     .pchip { padding: 7px 12px; font-size: 0.8rem; }
-    .cchip { font-size: 0.8rem; }
-    .course-card { padding: 18px 16px 14px; border-radius: 14px; }
-    .course-card h3 { font-size: 1.05rem; }
-    .step { flex-direction: column; gap: 2px; padding: 12px 0; }
+    .cchip { font-size: 0.79rem; padding: 5px 8px 5px 5px; }
+    .cchip .n { width: 18px; height: 18px; font-size: 0.68rem; }
+    .preset-row { gap: 5px; margin-top: 8px; }
+    .preset-btn { font-size: 0.74rem; padding: 6px 11px; }
+    #course-stats { font-size: 0.78rem; margin-top: 8px; }
+    .builder-hint { font-size: 0.71rem; }
+
+    .course-card { padding: 16px 14px 12px; border-radius: 14px; }
+    .course-card h3 { font-size: 1.02rem; }
+    .course-meta { font-size: 0.8rem; margin-bottom: 12px; }
+    .step { flex-direction: column; gap: 2px; padding: 11px 0; }
     .step-time { flex: none; font-size: 0.82rem; padding-top: 0; }
-    .step-body strong { font-size: 0.95rem; }
-    .step-body .desc { font-size: 0.85rem; }
-    .move { padding-left: 0; font-size: 0.78rem; }
-    table { font-size: 0.8rem; }
-    th, td { padding: 8px 10px; }
+    .step-body strong { font-size: 0.94rem; }
+    .step-body .desc { font-size: 0.84rem; }
+    .step-body ul.cafe-pick { font-size: 0.84rem; margin-left: 16px; }
+    .step-body .info { font-size: 0.77rem; }
+    .move { padding-left: 0; font-size: 0.77rem; }
+    table { font-size: 0.79rem; }
+    th, td { padding: 8px 9px; }
+    td:nth-child(3) { min-width: 110px; }
+    td:nth-child(4) { min-width: 200px; }
+    #map-fallback { padding: 14px 14px; font-size: 0.83rem; }
   }
 </style>
 </head>
@@ -1158,16 +1175,22 @@ svg.leaflet-image-layer.leaflet-interactive path {
       chuncheon:  { ll: [37.4400, 127.9200], color: '#777',    name: '🚗 → 춘천 방면', label: '→ 춘천', desc: '중앙고속도로 북상 · 약 1시간', q: '춘천' }
     };
 
+    // 마커는 미리 만들어두고, 코스에 선택된 스팟만 지도에 표시
     for (var key in spots) {
       var s = spots[key];
-      L.circleMarker(s.ll, {
+      s.marker = L.circleMarker(s.ll, {
         radius: 9, color: '#fff', weight: 2.5,
         fillColor: s.color, fillOpacity: 0.95
-      }).addTo(map)
-        .bindPopup(popup(s.name, s.desc, s.q))
+      }).bindPopup(popup(s.name, s.desc, s.q))
         .bindTooltip(s.label, {
           permanent: true, direction: 'top', offset: [0, -9], className: 'spot-label'
         });
+    }
+    function syncMarkers() {
+      for (var key in spots) {
+        if (courseArr.indexOf(key) !== -1) spots[key].marker.addTo(map);
+        else map.removeLayer(spots[key].marker);
+      }
     }
 
     /* ===== 코스 빌더 ===== */
@@ -1269,6 +1292,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       Array.prototype.forEach.call(document.querySelectorAll('.pchip'), function(p){
         p.classList.toggle('used', courseArr.indexOf(p.dataset.key) !== -1);
       });
+      syncMarkers();
       drawCourse(fit !== false);
     }
 
