@@ -1243,7 +1243,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       c: ['glacier', 'beoltoon', 'gireumjang', 'chuncheon'],
       d: ['cats', 'muten', 'chuncheon']
     };
-    var courseArr = presets.a.slice();
+    var courseArr = ['glacier', 'gireumjang', 'chuncheon'];   // 초기 코스: 빙하미술관 → 기름장 → 춘천
     var courseLayer = L.layerGroup().addTo(map);
 
     function haversine(a, b) {
