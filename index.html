@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>원주 맛집 · 카페 코스</title>
+<script>
+// 카카오톡 인앱 브라우저로 열리면 기본 브라우저(사파리/크롬/삼성)로 자동 전환
+(function(){
+  var ua = navigator.userAgent;
+  if (!/KAKAOTALK/i.test(ua) || location.protocol === 'file:') return;
+  var target = location.href;
+  if (/iphone|ipad|ipod/i.test(ua)) {
+    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(target);
+  } else {
+    location.href = 'intent://' + location.host + location.pathname + location.search +
+      '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(target) + ';end';
+  }
+})();
+</script>
 <style>
 /* required styles */
 
