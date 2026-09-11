@@ -5,17 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>원주 맛집 · 카페 코스</title>
 <script>
-// 카카오톡 인앱 브라우저로 열리면 기본 브라우저(사파리/크롬/삼성)로 자동 전환
+// 카카오톡 인앱 브라우저 → 기본 브라우저 전환 (자동 시도 + 버튼 배너)
 (function(){
   var ua = navigator.userAgent;
   if (!/KAKAOTALK/i.test(ua) || location.protocol === 'file:') return;
-  var target = location.href;
-  if (/iphone|ipad|ipod/i.test(ua)) {
-    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(target);
-  } else {
-    location.href = 'intent://' + location.host + location.pathname + location.search +
-      '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(target) + ';end';
+  var target = location.href.split('#')[0];
+  var isIOS = /iphone|ipad|ipod/i.test(ua);
+  function escapeNow(){
+    if (isIOS) {
+      location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(target);
+    } else {
+      location.href = 'intent://' + location.host + location.pathname + location.search +
+        '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(target) + ';end';
+    }
   }
+  setTimeout(escapeNow, 300);   // 자동 전환 시도 (최신 카톡은 막힐 수 있음)
+  document.addEventListener('DOMContentLoaded', function(){
+    var bar = document.createElement('div');
+    bar.style.cssText = 'position:sticky;top:0;z-index:9999;background:#1f3329;color:#fff;padding:10px 14px;font-size:13px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.25)';
+    bar.innerHTML =
+      '<span style="flex:1;min-width:150px;line-height:1.4">카톡 브라우저예요 — 지도는 기본 브라우저에서 더 잘 돼요</span>' +
+      '<button id="kko-open" style="background:#fff;color:#1f3329;border:none;border-radius:8px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer">' + (isIOS ? 'Safari로 열기' : '브라우저로 열기') + '</button>' +
+      '<button id="kko-copy" style="background:rgba(255,255,255,.18);color:#fff;border:none;border-radius:8px;padding:9px 12px;font-size:13px;cursor:pointer">링크 복사</button>';
+    document.body.insertBefore(bar, document.body.firstChild);
+    document.getElementById('kko-open').addEventListener('click', escapeNow);
+    document.getElementById('kko-copy').addEventListener('click', function(){
+      var btn = this;
+      function done(){ btn.textContent = '복사됨!'; }
+      function fallback(){
+        var inp = document.createElement('input');
+        inp.value = target;
+        document.body.appendChild(inp);
+        inp.select();
+        try { document.execCommand('copy'); done(); } catch(e) {}
+        document.body.removeChild(inp);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(target).then(done).catch(fallback);
+      } else { fallback(); }
+    });
+  });
 })();
 </script>
 <style>
