@@ -100,3 +100,17 @@ export function googleMapsUrl(spot: Spot): string {
     encodeURIComponent(spot.zh + " " + spot.label)
   );
 }
+
+/** 일정 → URL 공유용 문자열 (day는 콤마, 일차 구분은 물결) */
+export function encodeDays(days: string[][]): string {
+  return days.map((a) => a.join(",")).join("~");
+}
+
+/** URL 파라미터 → 일정. 형식이 어긋나면 null (모르는 스팟 id는 걸러냄) */
+export function decodeDays(raw: string): string[][] | null {
+  const parts = raw.split("~");
+  if (parts.length !== DEFAULT_DAYS.length) return null;
+  return parts.map((p) =>
+    p === "" ? [] : p.split(",").filter((id) => SPOTS[id])
+  );
+}

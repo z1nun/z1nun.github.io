@@ -10,6 +10,8 @@ import {
   DEFAULT_DAYS,
   STORAGE_KEY,
   googleMapsUrl,
+  encodeDays,
+  decodeDays,
   type CategoryKey,
 } from "@/lib/taiwan-data";
 
@@ -52,18 +54,73 @@ export default function TaiwanPlanner() {
   );
   const [activeDay, setActiveDay] = useState(0);
   const [resetArmed, setResetArmed] = useState(false);
+  // 공유 링크(?c=)로 열었을 때: 내 저장 일정을 덮어쓰지 않고 보기 모드로
+  const [sharedView, setSharedView] = useState(false);
+  const [copied, setCopied] = useState(false);
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // localStorage는 클라이언트 전용 → 마운트 후 복원
+  // localStorage·URL은 클라이언트 전용 → 마운트 후 복원
   useEffect(() => {
-    setDays(loadDays());
+    const c = new URLSearchParams(location.search).get("c");
+    const shared = c ? decodeDays(c) : null;
+    if (shared) {
+      setDays(shared);
+      setSharedView(true);
+    } else {
+      setDays(loadDays());
+    }
   }, []);
+
+  function clearShareParam() {
+    history.replaceState(null, "", location.pathname);
+  }
 
   function update(next: string[][]) {
     setDays(next);
+    // 공유 보기 모드에서는 메모리만 — [내 일정으로 저장]을 눌러야 저장됨
+    if (sharedView) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch {}
+  }
+
+  function saveSharedAsMine() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(days));
+    } catch {}
+    setSharedView(false);
+    clearShareParam();
+  }
+
+  function viewMyPlan() {
+    setDays(loadDays());
+    setSharedView(false);
+    clearShareParam();
+  }
+
+  function copyShareLink() {
+    const url =
+      location.origin + location.pathname + "?c=" + encodeDays(days);
+    const done = () => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    };
+    const fallback = () => {
+      const inp = document.createElement("input");
+      inp.value = url;
+      document.body.appendChild(inp);
+      inp.select();
+      try {
+        document.execCommand("copy");
+        done();
+      } catch {}
+      document.body.removeChild(inp);
+    };
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
   }
 
   const dayArr = days[activeDay];
@@ -114,6 +171,23 @@ export default function TaiwanPlanner() {
 
   return (
     <>
+      {sharedView && (
+        <div className={styles.sharedBanner}>
+          <span>
+            🔗 <b>공유받은 일정</b>을 보는 중이에요 — 저장하기 전엔 내 일정을
+            건드리지 않아요
+          </span>
+          <div className={styles.sharedBtns}>
+            <button className={styles.sharedSave} onClick={saveSharedAsMine}>
+              내 일정으로 저장
+            </button>
+            <button className={styles.sharedMine} onClick={viewMyPlan}>
+              내 일정 보기
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ===== 날짜별 일정 ===== */}
       <section>
         <h2>🗓 날짜별 일정</h2>
@@ -207,6 +281,9 @@ export default function TaiwanPlanner() {
           </div>
         ))}
         <div className={styles.resetRow}>
+          <button className={styles.shareBtn} onClick={copyShareLink}>
+            {copied ? "복사됨! 카톡에 붙여넣으세요" : "🔗 일정 공유 링크 복사"}
+          </button>
           <button
             className={`${styles.resetBtn} ${resetArmed ? styles.resetArmed : ""}`}
             onClick={reset}
