@@ -968,6 +968,102 @@ svg.leaflet-image-layer.leaflet-interactive path {
 </style>
 </head>
 <body>
+<!-- ===== 비밀번호 게이트 ===== -->
+<style>
+body { visibility: hidden; }
+body.authed { visibility: visible; }
+#pw-gate {
+  visibility: visible; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: linear-gradient(150deg, #96281b 0%, #c0392b 55%, #e67e22 130%);
+}
+#pw-gate .gate-card, #pw-gate input, #pw-gate button { box-sizing: border-box; }
+body.authed #pw-gate { display: none; }
+#pw-gate .gate-card {
+  position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%);
+  width: calc(100% - 48px); max-width: 330px; margin: 0;
+  background: #fff; border-radius: 18px; padding: 30px 26px;
+  text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,.3);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+#pw-gate .gate-card.shake { animation: gshake .35s; }
+@keyframes gshake {
+  20%{transform:translate(-50%,-50%) translateX(-7px)} 40%{transform:translate(-50%,-50%) translateX(7px)}
+  60%{transform:translate(-50%,-50%) translateX(-5px)} 80%{transform:translate(-50%,-50%) translateX(5px)}
+}
+#pw-gate .gate-card .em { font-size: 34px; }
+#pw-gate .gate-card h3 { margin: 8px 0 4px; font-size: 17px; color: #2c2420; }
+#pw-gate .gate-card p { font-size: 13px; color: #8a7a6d; margin-bottom: 16px; }
+#pw-gate input {
+  width: 100%; border: 1.5px solid #e8ddd2; border-radius: 12px;
+  padding: 12px; font-size: 20px; text-align: center; letter-spacing: 8px;
+  outline: none;
+}
+#pw-gate input:focus { border-color: #c0392b; }
+#pw-gate button {
+  width: 100%; margin-top: 12px; border: none; border-radius: 12px;
+  background: #c0392b; color: #fff; font-size: 15px; font-weight: 700;
+  padding: 12px; cursor: pointer;
+}
+#pw-gate .err { color: #c0392b; font-size: 12.5px; min-height: 18px; margin-top: 8px; }
+</style>
+<div id="pw-gate">
+  <div class="gate-card" id="gate-card">
+    <div class="em">🏮</div>
+    <h3>우리만 보는 페이지예요</h3>
+    <p>비밀번호를 입력해 주세요</p>
+    <input id="pw-input" type="password" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="····">
+    <button id="pw-btn">열기</button>
+    <div class="err" id="pw-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var HASH = '32625be384ed05129315617a65f0b070e7b35a4257bdd11e0d98185c6f0cecfe';
+  var KEY = 'plan-auth-v1';
+  function unlock() { document.body.classList.add('authed'); }
+  try { if (localStorage.getItem(KEY) === HASH) { unlock(); return; } } catch(e) {}
+
+  function sha256(text) {
+    if (window.crypto && crypto.subtle && crypto.subtle.digest) {
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function(buf){
+        return Array.prototype.map.call(new Uint8Array(buf), function(b){
+          return ('0' + b.toString(16)).slice(-2);
+        }).join('');
+      });
+    }
+    return Promise.reject();
+  }
+  function fail() {
+    var card = document.getElementById('gate-card');
+    document.getElementById('pw-err').textContent = '비밀번호가 달라요';
+    card.classList.remove('shake');
+    void card.offsetWidth;
+    card.classList.add('shake');
+  }
+  function tryPw() {
+    var v = document.getElementById('pw-input').value.trim();
+    if (!v) return;
+    sha256(v).then(function(h){
+      if (h === HASH) {
+        try { localStorage.setItem(KEY, HASH); } catch(e) {}
+        unlock();
+      } else fail();
+    }, function(){
+      // crypto.subtle 없는 구형 브라우저 폴백
+      if (v === atob('MDYwMg==')) { try { localStorage.setItem(KEY, HASH); } catch(e) {} unlock(); }
+      else fail();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('pw-btn').addEventListener('click', tryPw);
+    document.getElementById('pw-input').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') tryPw();
+    });
+  });
+})();
+</script>
+
 
 <header>
   <h1>원주 맛집 · 카페 코스</h1>
