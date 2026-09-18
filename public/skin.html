@@ -92,6 +92,109 @@
   }
   .quicknav a:hover { transform: translateY(-1px); border-color: var(--accent); box-shadow: 0 4px 12px rgba(120,100,75,0.12); }
 
+  /* ---------- skin status ---------- */
+  .progress {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.84rem;
+  }
+  .progress .stage {
+    flex: 1;
+    min-width: 180px;
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .progress .stage.past { background: var(--beige); color: var(--ink-soft); }
+  .progress .stage.now { background: var(--recover); color: var(--recover-ink); border: 1px solid var(--recover-line); }
+  .progress .stage .lbl {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .progress .arrow { flex: none; color: var(--accent); font-weight: 700; }
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  @media (min-width: 640px) { .status-grid { grid-template-columns: 1fr 1fr; } }
+  .scard {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 15px 16px;
+  }
+  .scard .shead {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .scard .shead h4 { font-size: 0.92rem; font-weight: 700; }
+  .sbadge {
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+  .sbadge.hot { background: var(--bha); color: var(--bha-ink); border: 1px solid var(--bha-line); }
+  .sbadge.mid { background: var(--beige); color: var(--accent-deep); }
+  .sbadge.pro { background: var(--sp); color: var(--sp-ink); }
+  .scard .sdesc { font-size: 0.82rem; color: var(--ink-soft); }
+  .scard .spoint {
+    margin-top: 9px;
+    border-top: 1px dashed var(--line);
+    padding-top: 8px;
+    font-size: 0.78rem;
+  }
+  .scard .spoint strong { color: var(--accent-deep); }
+  .day.scard-hover:hover { transform: none; }
+
+  /* ---------- routine review ---------- */
+  .grades {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 4px 0 10px;
+  }
+  .grade {
+    flex: 1;
+    min-width: 130px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .grade .g-label { font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; }
+  .grade .g-mark {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 2px;
+    color: var(--recover-ink);
+  }
+  .grade .g-mark.b { color: var(--bha-ink); }
+  .oneline {
+    background: var(--beige);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
   /* ---------- notice boxes ---------- */
   .notice {
     background: var(--card);
@@ -391,7 +494,9 @@
     <div class="divider"></div>
     <p>피지 · 모공 · 피부결 · 피부장벽 관리</p>
     <nav class="quicknav">
+      <a href="#status">🔍 피부 상태</a>
       <a href="#weekly">📅 주간 루틴</a>
+      <a href="#review">📋 종합 평가</a>
       <a href="#shelf">🧴 내 제품</a>
     </nav>
   </header>
@@ -426,6 +531,56 @@
       <li><strong>괄사 사용 시 주의:</strong> 힘을 빼고 부드럽게, 같은 부위를 과도하게 문지르지 않기. 상처·트러블 부위는 피하고, BHA 사용일(화/금)은 자극을 줄이기 위해 쉬는 걸 추천해요.</li>
       <li><strong>디바이스와 함께 쓸 때:</strong> 사용 시간·부위·빈도는 반드시 기기 설명서를 따라 주세요.</li>
     </ul>
+  </div>
+
+  <div class="section-title" id="status">SKIN STATUS</div>
+  <p class="muted" style="margin-bottom:12px;">약 4개월 꾸준한 관리로 눈에 띄게 개선된 상태 · 2026.09 기준</p>
+
+  <div class="progress">
+    <div class="stage past">
+      <span class="lbl">BEFORE · 4개월 전</span>
+      피지·각질성 요철이 전반적으로 눈에 띄던 상태
+    </div>
+    <span class="arrow">→</span>
+    <div class="stage now">
+      <span class="lbl">NOW · 많이 개선됨 ✓</span>
+      코 주변 모공·피지·요철, 일부 붉은기, 패인 흔적만 남음
+    </div>
+  </div>
+
+  <div class="status-grid">
+    <div class="scard">
+      <div class="shead"><h4>👃 코 · 콧등</h4><span class="sbadge hot">최우선 관리</span></div>
+      <div class="sdesc">
+        미간→콧등의 작은 면포/피지·각질성 요철. 로션 흡수 후 피지가 다시 올라오고,
+        파운데이션을 바르면 요철이 더 부각됨.
+      </div>
+      <div class="spoint"><strong>포인트</strong> · 모공 크기 자체보다 <strong>모공 속 피지 + 미세 각질/면포 + 표면 굴곡</strong>이 핵심.
+      BHA(화/금)와 나이아신아마이드가 정확히 이 부위를 겨냥하는 조합. 손으로 짜지 않기.</div>
+    </div>
+
+    <div class="scard">
+      <div class="shead"><h4>🍑 볼</h4><span class="sbadge mid">모공 · 피부결</span></div>
+      <div class="sdesc">
+        모공과 약간의 피지성 요철. 염증성·화농성 트러블이 주된 문제는 아님 —
+        ‘트러블 폭발형’이 아니라 <strong>표면 매끈함이 신경 쓰이는 타입</strong>.
+      </div>
+      <div class="spoint"><strong>포인트</strong> · 각질을 더 벗겨내려 하기보다 지금 빈도(BHA 주 2회)를 꾸준히 유지하는 쪽이 유리.</div>
+    </div>
+
+    <div class="scard">
+      <div class="shead"><h4>🌡 붉은기</h4><span class="sbadge mid">장벽 우선</span></div>
+      <div class="sdesc">일부 부위에 붉은기가 남아 있음.</div>
+      <div class="spoint"><strong>포인트</strong> · 각질 제거를 늘리는 건 역효과. <strong>피부장벽 유지(311 로션)</strong>를 지키면서
+      피지·각질을 천천히 조절하는 방향이 맞음. 붉은기가 심해진 날은 회복 루틴으로 전환.</div>
+    </div>
+
+    <div class="scard">
+      <div class="shead"><h4>🕳 패인 흔적</h4><span class="sbadge pro">시술 영역</span></div>
+      <div class="sdesc">살짝 함몰된 ‘구멍처럼 패인’ 부분 — 피지·각질이 아니라 여드름 흉터성 요철에 가까울 수 있음.</div>
+      <div class="spoint"><strong>포인트</strong> · 나이아신아마이드·BHA로 메워지는 종류가 아님.
+      개선을 원하면 <strong>피부과 시술(포텐자 등) 상담 영역</strong>. 홈케어의 역할은 새 흔적이 생기지 않게 하는 것.</div>
+    </div>
   </div>
 
   <div class="section-title" id="weekly">WEEKLY PLAN</div>
@@ -634,6 +789,52 @@
     </ul>
   </div>
 
+  <div class="section-title" id="review">ROUTINE REVIEW</div>
+  <p class="muted" style="margin-bottom:12px;">2026.09 기준 종합 평가 · 4주 후 재평가 예정</p>
+
+  <div class="grades">
+    <div class="grade"><div class="g-label">구조 / 순서</div><div class="g-mark">A</div></div>
+    <div class="grade"><div class="g-label">안전장치</div><div class="g-mark">A</div></div>
+    <div class="grade"><div class="g-label">성분 선택</div><div class="g-mark b">B</div></div>
+  </div>
+  <div class="oneline">
+    설계는 잘했고, 성패는 앞으로 4주간 <strong>20% 나이아신아마이드와의 궁합</strong>에서 갈린다.
+    자극 없이 안착하면 완성도 높은 루틴.
+  </div>
+
+  <div class="notice">
+    <h3>✅ 잘 짜인 부분</h3>
+    <ul>
+      <li><strong>순서가 정석</strong> — 세안 → 수용성 세럼 → 앰플 → 로션 → 선크림. 흡수 충돌 없음.</li>
+      <li><strong>매일 선크림</strong> — 색소·노화 예방에서 근거가 가장 강한 습관. 이것만으로 절반은 먹고 들어감.</li>
+      <li><strong>BHA 주 2회 제한 + 자극 시 나이아신 생략</strong> — 산 과사용이라는 흔한 실패 패턴이 미리 방어됨.</li>
+      <li><strong>회복 루틴의 존재</strong> — 피부가 뒤집혔을 때 후퇴할 출구가 있는 드문 설계.</li>
+      <li><strong>이중세안을 메이크업 날로 한정</strong> — 과세안 방지. 311 로션이 매일 깔려 있어 장벽 기반도 안정적.</li>
+    </ul>
+  </div>
+
+  <div class="notice">
+    <h3>⚠️ 주의할 부분</h3>
+    <ul>
+      <li><strong>나이아신아마이드 20%는 과한 농도</strong> — 효과 연구 대부분은 2~5% 구간. 농도 4배 ≠ 효과 4배인데 자극 확률은 확실히 상승.
+      적응기를 반드시 지키고, <strong>2~3주 후에도 화끈거림·붉어짐이 계속되면 5% 제품으로 교체</strong>하는 게 결과적으로 이득.</li>
+      <li><strong>니코틴산아미드 이중 사용</strong> — 20% 세럼(얼굴 전체) + 세비타비겔(트러블 부위). 트러블 부위가 유독 따가우면 세럼을 그 부위만 피해서 바르기.</li>
+      <li><strong>활성 성분 밀도가 높음</strong> — 첫 한 달은 “좋아지고 있나”보다 <strong>“자극 신호가 없나”</strong>를 먼저 볼 것.
+      회복 루틴으로 빠지는 주가 월 2회 이상이면 하나를 빼야 한다는 신호.</li>
+      <li><strong>부스팅 젤+괄사는 기대치 관리</strong> — 순환·부기 완화 체감은 가능하나 ‘리프팅’의 구조적 변화 근거는 약한 영역. 해는 없으니 가볍게.</li>
+    </ul>
+  </div>
+
+  <div class="notice">
+    <h3>🔭 다음 스텝 (지금 하지 말 것)</h3>
+    <ul>
+      <li><strong>레티노이드(레티놀)가 루틴에 없음</strong> — 모공·피부결·노화에 근거가 가장 강한 성분.
+      단, <strong>지금 추가하면 안 됨</strong>: 20% 나이아신 적응 중 레티놀까지 얹으면 거의 확실히 뒤집힘.</li>
+      <li>나이아신 적응 완료(4주+) 후 피부가 안정적이면, <strong>BHA 없는 요일 저녁에 저농도부터</strong> 고려할 다음 스텝.</li>
+      <li>패인 흔적 개선을 원하면 홈케어가 아니라 피부과 시술 상담(포텐자 등)이 맞는 경로.</li>
+    </ul>
+  </div>
+
   <div class="section-title" id="shelf">MY SHELF</div>
   <p class="muted" style="margin-bottom:12px;">지금 쓰는 제품 9가지 · 탭을 눌러 아침/저녁/스페셜별로 볼 수 있어요.</p>
 
@@ -816,7 +1017,7 @@
 <script>
   // ---- scroll reveal (staggered) ----
   var revealTargets = Array.prototype.slice.call(
-    document.querySelectorAll(".day, .notice, .pcard, .caution, .section-title, .filters")
+    document.querySelectorAll(".day, .notice, .pcard, .caution, .section-title, .filters, .scard, .progress, .grades, .oneline")
   );
   revealTargets.forEach(function (el) { el.classList.add("reveal"); });
   var io = new IntersectionObserver(function (entries) {
