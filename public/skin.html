@@ -75,20 +75,27 @@
   .quicknav {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 8px;
     margin: 14px 0 26px;
     animation: fadeUp 0.8s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .quicknav a {
     text-decoration: none;
-    font-size: 0.8rem;
+    white-space: nowrap;
+    flex: none;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--accent-deep);
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 99px;
-    padding: 7px 16px;
+    padding: 7px 13px;
     transition: transform 0.15s, box-shadow 0.25s, border-color 0.25s;
+  }
+  @media (max-width: 400px) {
+    .quicknav { gap: 6px; }
+    .quicknav a { font-size: 0.72rem; padding: 6px 10px; }
   }
   .quicknav a:hover { transform: translateY(-1px); border-color: var(--accent); box-shadow: 0 4px 12px rgba(120,100,75,0.12); }
 
