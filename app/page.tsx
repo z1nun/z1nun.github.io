@@ -20,7 +20,7 @@ const PLANS: Plan[] = [
     date: "2026.10.30 – 11.03",
   },
   {
-    href: "/plan/wonju.html",
+    href: "/wonju.html",
     emoji: "🏞",
     title: "원주 데이트",
     desc: "맛집 · 카페 · 놀거리 코스 만들기",
