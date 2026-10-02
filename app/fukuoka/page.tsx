@@ -8,6 +8,8 @@ import {
   FLIGHTS,
   RETURN_STEPS,
   CAUTIONS,
+  PLAN_COMPARE,
+  VJW,
 } from "@/lib/fukuoka-data";
 
 export const metadata: Metadata = {
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function FukuokaPage() {
   return (
-    <>
+    <div className={styles.page}>
       <header className={styles.hero}>
         <div className={styles.torii}>⛩⛩⛩</div>
         <h1>후쿠오카 여행 계획 🏯</h1>
@@ -100,7 +102,8 @@ export default function FukuokaPage() {
         <section>
           <h2>✈️ 1/15(금) — 오는 길</h2>
           <p className={styles.note}>
-            이코노미 성인 1인 총액 (제주항공 제외) · 2026-10-02 검색 최저가 약 16만원 · 2인은 ×2
+            이코노미 성인 1인 총액 (제주항공 제외) · 2026/27 동계 스케줄 기준,
+            10/2 검색 최저가 약 16만원 · 2인은 ×2
           </p>
           <div className={styles.flights}>
             {FLIGHTS.map((f) => (
@@ -132,6 +135,26 @@ export default function FukuokaPage() {
         </section>
 
         <section>
+          <h2>🧭 플랜 비교</h2>
+          <div className={styles.plans}>
+            {PLAN_COMPARE.map((p) => (
+              <div key={p.id} className={styles.plan}>
+                <div className={styles.planHead}>
+                  <b>{p.title}</b>
+                  {p.badge && <span className={styles.planBadge}>{p.badge}</span>}
+                </div>
+                <div className={styles.planCost}>{p.cost}</div>
+                <ul className={styles.planPoints}>
+                  {p.points.map((pt) => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
           <h2>⚠️ 주의사항</h2>
           <div className={styles.facts}>
             {CAUTIONS.map((c) => (
@@ -140,6 +163,48 @@ export default function FukuokaPage() {
                 {c.body}
               </div>
             ))}
+          </div>
+        </section>
+
+        <section>
+          <h2>📱 입국 준비 — Visit Japan Web</h2>
+          <div className={styles.vjw}>
+            <div className={styles.vjwQrBox}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/vjw-qr.png"
+                alt="Visit Japan Web 공식 사이트 QR"
+                width={116}
+                height={116}
+                className={styles.vjwQr}
+              />
+              <div className={styles.vjwQrLabel}>폰 카메라로 스캔 → 바로 등록</div>
+            </div>
+            <div className={styles.vjwBody}>
+              <ul className={styles.vjwPoints}>
+                {VJW.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+              <div className={styles.vjwLinks}>
+                {VJW.links.map((l) => (
+                  <a key={l.url} href={l.url} target="_blank" rel="noreferrer">
+                    {l.label} ↗
+                  </a>
+                ))}
+              </div>
+              <div className={styles.vjwBlogs}>
+                참고 글:{" "}
+                {VJW.blogs.map((b, i) => (
+                  <span key={b.url}>
+                    {i > 0 && " · "}
+                    <a href={b.url} target="_blank" rel="noreferrer">
+                      {b.label}
+                    </a>
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -154,6 +219,6 @@ export default function FukuokaPage() {
           가격은 2026-10-02 조사 기준 — 예매 시점에 다시 확인하기 🧡
         </footer>
       </div>
-    </>
+    </div>
   );
 }
