@@ -168,9 +168,10 @@
   transition: transform 0.16s ease, color 0.16s ease;
 }
 
-/* Motion-safe hover (CSS-side guard; complements MotionCard JS).
-   MotionCard OWNS the lift (y:-4); CSS keeps ONLY border-color +
-   arrow nudge here — no transform — to avoid a double-translate (NIT-1). */
+/* Motion-safe card hover (CSS owns it entirely — framer-motion/MotionCard
+   removed in the vanilla port). Deliberately NO transform on .card: only
+   border-color + box-shadow + a small arrow nudge, so the card never shifts
+   layout on hover. */
 @media (prefers-reduced-motion: no-preference) {
   .card {
     transition: border-color 0.16s ease, box-shadow 0.16s ease;
