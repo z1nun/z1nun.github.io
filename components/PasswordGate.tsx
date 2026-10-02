@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import styles from "./PasswordGate.module.css";
 
 // SHA-256("0602") — 소스에 평문 비밀번호를 남기지 않기 위해 해시로만 비교
@@ -28,6 +29,7 @@ export default function PasswordGate({
   const [error, setError] = useState("");
   const [shaking, setShaking] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     try {
@@ -53,29 +55,58 @@ export default function PasswordGate({
     }
   }
 
-  if (authed) return <>{children}</>;
-
+  // M6 cross-fade: children render on authed===true and fade in (mount ONCE,
+  // no key change — AC-6). The gate overlay exits via AnimatePresence when
+  // authed flips true. The fixed overlay (z-index 9999) stays above the content
+  // during the ~0.3s overlap, so content cross-fades in beneath the exiting gate.
+  // NO AnimatePresence mode="wait" (would serialize into an instant swap) — NIT-4.
+  // null = nothing rendered (pre-localStorage check) — 3-state preserved.
   return (
-    <div className={styles.overlay}>
-      {authed === false && (
-        <div
-          className={`${styles.card} ${shaking ? styles.shake : ""}`}
-          onAnimationEnd={() => setShaking(false)}
-        >
-          <input
-            ref={inputRef}
-            type="password"
-            aria-label="비밀번호"
-            inputMode="numeric"
-            maxLength={12}
-            autoComplete="off"
-            placeholder="····"
-            onKeyDown={(e) => e.key === "Enter" && tryPassword()}
-          />
-          <button onClick={tryPassword}>열기</button>
-          <div className={styles.error}>{error}</div>
-        </div>
-      )}
-    </div>
+    <>
+      {authed === true &&
+        (reduce ? (
+          <>{children}</>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+          >
+            {children}
+          </motion.div>
+        ))}
+
+      <AnimatePresence>
+        {authed === false && (
+          <motion.div
+            key="gate-overlay"
+            className={styles.overlay}
+            initial={false}
+            exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.3 } }}
+          >
+            {/* .card keeps its base translate(-50%,-50%) + shake keyframes.
+                exit is opacity-only (no scale) so it never fights the centering. */}
+            <motion.div
+              className={`${styles.card} ${shaking ? styles.shake : ""}`}
+              onAnimationEnd={() => setShaking(false)}
+              exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.25 } }}
+            >
+              <input
+                ref={inputRef}
+                type="password"
+                aria-label="비밀번호"
+                inputMode="numeric"
+                maxLength={12}
+                autoComplete="off"
+                placeholder="····"
+                onKeyDown={(e) => e.key === "Enter" && tryPassword()}
+              />
+              <button onClick={tryPassword}>열기</button>
+              <div className={styles.error}>{error}</div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

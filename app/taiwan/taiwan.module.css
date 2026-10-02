@@ -87,21 +87,30 @@
   max-width: 692px;
   padding: 14px 16px;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;      /* leg | connector | leg */
+  align-items: center;
   gap: 10px;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }
 
 .leg {
   text-align: center;
-  flex: 1 1 100%;
-  min-width: 0;
+  min-width: 0;                             /* grid handles sizing; no flex-basis */
 }
 
-@media (min-width: 560px) {
-  .leg {
-    flex: 1 1 40%;
+/* decorative two-leg connector (aria-hidden, not copy) */
+.legConnector {
+  color: var(--tw-amber);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+@media (max-width: 559px) {
+  .flightCard {
+    grid-template-columns: 1fr;             /* 375px: stack the legs */
+  }
+  .legConnector {
+    transform: rotate(90deg);               /* arrow points down when stacked */
   }
 }
 
@@ -128,7 +137,8 @@
 .tips {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 12px;
+  align-items: start;              /* clean card grid, equal top alignment */
 }
 
 @media (min-width: 600px) {
@@ -157,4 +167,37 @@
   color: var(--tw-muted);
   font-size: 12px;
   margin-top: 40px;
+}
+
+/* ===== 벤치마크 폴리시 레이어 ===== */
+.kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 10px;
+}
+
+.hero {
+  padding: 56px 18px 40px;
+  background:
+    radial-gradient(440px 220px at 50% -40px, rgba(255, 190, 90, 0.26), transparent 70%),
+    linear-gradient(135deg, var(--tw-red-dark) 0%, var(--tw-red) 60%, var(--tw-amber) 130%);
+}
+
+.hero h1 {
+  font-size: clamp(30px, 7.5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.wrap section {
+  margin-top: 48px;
+}
+
+@media (min-width: 700px) {
+  .wrap section {
+    margin-top: 64px;
+  }
 }

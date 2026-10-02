@@ -199,7 +199,7 @@
   padding-top: 6px;
 }
 
-/* ---------- Steps ---------- */
+/* ---------- Steps (kept for safety; .stepTime/.stepBody REUSED by timeline) ---------- */
 .steps {
   display: grid;
   gap: 10px;
@@ -210,6 +210,50 @@
   border: 1px solid var(--fuk-hair);
   border-radius: 12px;
   padding: 12px 14px;
+}
+
+/* ---------- Vertical timeline (replaces .steps container) ----------
+   Single left rail (static CSS pseudo-element — no scroll-driven height)
+   + a node dot per step; time chip + body to the right. 375px-safe:
+   a 2px absolute line at a fixed inset + padding-left:28px bodies,
+   content column min-width:0 → never overflows (AC-11). */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;                 /* rail x = node center */
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--fuk-hair);
+}
+.tItem {
+  list-style: none;
+  position: relative;
+  padding-left: 28px;        /* clear the rail + node; body starts here */
+  padding-bottom: 14px;      /* vertical rhythm between nodes */
+}
+.tItem:last-child {
+  padding-bottom: 0;
+}
+.tNode {
+  position: absolute;
+  left: 0;                   /* 0..16 box; center lands at 7px to match rail */
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 3px solid var(--fuk-accent);
+  box-sizing: border-box;
+}
+.tContent {
+  min-width: 0;              /* no 375px overflow */
 }
 
 .stepTime {
@@ -340,6 +384,7 @@
 @media (min-width: 600px) {
   .plans {
     grid-template-columns: 1fr 1fr;
+    align-items: start;        /* aligned compare columns */
   }
 }
 
@@ -349,6 +394,8 @@
   border-radius: 12px;
   padding: 12px 14px;
   font-size: 13px;
+  display: flex;               /* equal-height compare column */
+  flex-direction: column;
 }
 
 .planHead {
@@ -382,6 +429,7 @@
 
 .planPoints {
   margin: 6px 0 0 16px;
+  flex: 1;                     /* push bullets to equal column height */
 }
 
 .planPoints li {
@@ -485,4 +533,49 @@
     transform: translateY(-1px);
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
   }
+}
+
+/* ===== 벤치마크 폴리시 레이어 (Apple·Linear 감각) ===== */
+.kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 12px;
+}
+
+.hero {
+  padding: 60px 18px 42px;
+  background:
+    radial-gradient(460px 240px at 50% -40px, rgba(120, 170, 230, 0.32), transparent 70%),
+    var(--fuk-grad);
+}
+
+.hero h1 {
+  font-size: clamp(30px, 7.5vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.sub {
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.wrap section {
+  margin-top: 48px;
+}
+
+@media (min-width: 700px) {
+  .wrap section {
+    margin-top: 64px;
+  }
+}
+
+.step,
+.flight,
+.fact,
+.plan {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 6px 18px rgba(0, 0, 0, 0.05);
 }

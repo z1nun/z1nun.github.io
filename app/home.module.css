@@ -43,31 +43,133 @@
   margin-top: 6px;
 }
 
+/* .list is a <ul>; items are <li> (semantic). Strip list chrome. */
 .list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;                 /* was 12px — slightly more air between larger cards */
 }
 
+.listItem {
+  list-style: none;
+}
+
+/* Large destination card: left theme band + content + arrow.
+   Grid: [band 4px][content 1fr][arrow auto] */
 .card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 4px 1fr auto;
+  align-items: stretch;
+  column-gap: 14px;
   background: var(--card);
   border: 1px solid var(--home-hair);
   border-radius: 14px;              /* Common Base feature-card radius */
-  padding: 16px;
+  padding: 0;                       /* padding moves inside .content so band bleeds full-height */
+  overflow: hidden;                 /* clip band to the 14px radius */
   text-decoration: none;
   color: var(--home-ink);
 }
 
+/* theme-color band — the per-trip identity stripe (full card height) */
+.band {
+  width: 4px;
+  align-self: stretch;
+}
+.bandFukuoka {
+  background: #1f3a93;
+}
+.bandTaiwan {
+  background: linear-gradient(160deg, #c0392b 0%, #e67e22 120%);
+}
+.bandWonju {
+  background: #b5623a;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px 0;
+  min-width: 0;                     /* allow long Korean strings to shrink + wrap */
+}
+
+.emoji {
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 17px;                  /* up from 16.5 — larger card warrants a touch more */
+  letter-spacing: -0.2px;
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--home-muted);
+  line-height: 1.5;
+}
+
+/* meta row: date + D-day on one baseline-aligned line */
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;                  /* 375px: a 3-digit D-nnn chip wraps to its own line, never overflows */
+  margin-top: 6px;
+}
+
+/* date = quiet data figure: mono + tabular-nums, accent-tinted */
+.date {
+  font-family: var(--home-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--home-accent-strong);
+  letter-spacing: 0.01em;
+  white-space: nowrap;             /* short figure */
+}
+
+/* D-day chip — fixed-height reserved slot (no layout shift when filled post-mount) */
+.dday {
+  min-height: 20px;                /* reserve the line even when empty at first paint */
+  display: inline-flex;
+  align-items: center;
+}
+.ddayVal {
+  font-family: var(--home-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--home-accent-strong);   /* ~5:1 white-on; stronger accent for AA (NIT-5) */
+  padding: 1px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.arrow {
+  align-self: center;
+  padding-right: 16px;
+  font-size: 22px;
+  color: var(--home-muted);
+  flex: none;
+  transition: transform 0.16s ease, color 0.16s ease;
+}
+
+/* Motion-safe hover (CSS-side guard; complements MotionCard JS).
+   MotionCard OWNS the lift (y:-4); CSS keeps ONLY border-color +
+   arrow nudge here — no transform — to avoid a double-translate (NIT-1). */
 @media (prefers-reduced-motion: no-preference) {
   .card {
-    transition: transform 0.16s ease, box-shadow 0.16s ease,
-      border-color 0.16s ease;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
   }
   .card:hover {
-    transform: translateY(-2px);
     border-color: var(--home-accent);
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);   /* Common Base elevation */
   }
@@ -77,42 +179,36 @@
   }
 }
 
-.emoji {
-  font-size: 30px;
-  flex: none;
+/* ===== 벤치마크 폴리시 레이어 (Apple·Linear·토스 감각) ===== */
+.kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--home-accent);
+  margin-bottom: 10px;
 }
 
-.body {
-  flex: 1;
-  min-width: 0;
+.hero {
+  position: relative;
+  padding: 64px 0 36px;
+  background: radial-gradient(
+    640px 320px at 50% -80px,
+    rgba(181, 98, 58, 0.1),
+    transparent 70%
+  );
 }
 
-.title {
+.hero h1 {
+  font-size: clamp(36px, 10vw, 54px);
   font-weight: 800;
-  font-size: 16.5px;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
 }
 
-.desc {
-  font-size: 13px;
-  color: var(--home-muted);
-  margin-top: 3px;
-  line-height: 1.5;
+.card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* date = quiet data figure: mono + tabular-nums, accent-tinted */
-.date {
-  font-family: var(--home-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 12px;
-  color: var(--home-accent-strong);
-  margin-top: 6px;
-  letter-spacing: 0.01em;
-}
-
-.arrow {
-  font-size: 22px;
-  color: var(--home-muted);
-  flex: none;
-  transition: transform 0.16s ease, color 0.16s ease;
+.list {
+  gap: 14px;
 }

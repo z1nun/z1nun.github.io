@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import TaiwanPlanner from "@/components/TaiwanPlanner";
-import styles from "./taiwan.module.css";
+import TaiwanView from "@/components/TaiwanView";
 
+// Server component: keeps metadata + the TIPS literal, delegates the animated
+// body to the "use client" TaiwanView.
 export const metadata: Metadata = {
   title: "대만 여행 계획 · 10/30 – 11/3",
   description: "타이베이 4박5일 — 날짜별 일정 + 스팟 골라서 내 코스 만들기",
@@ -21,48 +22,5 @@ const TIPS: { title: string; body: string }[] = [
 ];
 
 export default function TaiwanPage() {
-  return (
-    <>
-      <header className={styles.hero}>
-        <div className={styles.lanterns}>🏮🏮🏮</div>
-        <h1>대만 여행 계획 🇹🇼</h1>
-        <div className={styles.sub}>
-          10월 30일(금) → 11월 3일(화) · 타이베이 4박 5일
-        </div>
-      </header>
-
-      <div className={styles.wrap}>
-        <div className={styles.flightCard}>
-          <div className={styles.leg}>
-            <div className={styles.legLabel}>✈️ 출국 · 10/30(금)</div>
-            <div className={styles.legTime}>16:20 인천 → 18:10 타이베이</div>
-            <div className={styles.legRoute}>도착 후 공항철도로 시내까지 약 40분</div>
-          </div>
-          <div className={styles.leg}>
-            <div className={styles.legLabel}>🛬 귀국 · 11/3(화)</div>
-            <div className={styles.legTime}>12:25 타이베이 → 15:50 인천</div>
-            <div className={styles.legRoute}>늦어도 10:00에는 공항 도착</div>
-          </div>
-        </div>
-
-        <TaiwanPlanner />
-
-        <section>
-          <h2>💡 여행 메모</h2>
-          <div className={styles.tips}>
-            {TIPS.map((t) => (
-              <div key={t.title} className={styles.tip}>
-                <b>{t.title}</b>
-                {t.body}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <footer className={styles.footer}>
-          대만 여행 계획 · 영업시간·교통편은 출발 전 다시 확인하기 🧡
-        </footer>
-      </div>
-    </>
-  );
+  return <TaiwanView tips={TIPS} />;
 }
