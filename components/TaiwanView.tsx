@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import TaiwanPlanner from "@/components/TaiwanPlanner";
 import styles from "@/app/taiwan/taiwan.module.css";
-import { SPOTS } from "@/lib/taiwan-data";
 import ScrollFx from "@/components/ScrollFx";
 
 /* CRITICAL STRUCTURE PRESERVATION (AC-3 / AC-7):
@@ -13,12 +11,6 @@ import ScrollFx from "@/components/ScrollFx";
      It inherits --tw-* ONLY via .wrap. No wrapper, no key change → mount-stable.
    - The #s2 scroll-spy marker is a zero-box SIBLING immediately BEFORE the
      planner (never a wrapper) so nav item 02 lights at the planner's scroll pos. */
-
-// Hero-stat number EXTRACTED in the view (no new copy in lib): # of spots to see.
-const SPOTS_COUNT = Object.keys(SPOTS).length; // 38
-
-// Taiwan departure date — D-day computed POST-MOUNT (hydration-safe, no baked number).
-const DEPART = "2026-10-30";
 
 // Left scroll-spy nav items (desktop) — order matches spy targets s1 → s2 → s3.
 const NAV = [
@@ -32,19 +24,6 @@ export default function TaiwanView({
 }: {
   tips: { title: string; body: string }[];
 }) {
-  // D-day as a static big number set post-mount (no count-up — protects the
-  // hydration-safe guarantee; the big-number treatment comes from CSS size/weight).
-  const [dday, setDday] = useState<number | null>(null);
-  useEffect(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const start = new Date(DEPART + "T00:00:00");
-    setDday(Math.ceil((start.getTime() - today.getTime()) / 86400000));
-  }, []);
-
-  const ddayText =
-    dday === null ? "" : dday > 0 ? String(dday) : dday === 0 ? "DAY" : "출발";
-
   return (
     <>
       <div id="pbar" className={`${styles.pbar} pbar`} aria-hidden />
@@ -67,32 +46,6 @@ export default function TaiwanView({
         <h1>대만 여행 계획 🇹🇼</h1>
         <div className={styles.lead}>
           10월 30일(금) → 11월 3일(화) · 타이베이 4박 5일
-        </div>
-        <div className="stats">
-          <div>
-            {/* D-day: static post-mount number, NO count-up (hydration-safe) */}
-            <span className="statNum">
-              {dday !== null && dday > 0 && <em>D-</em>}
-              {ddayText || " "}
-            </span>
-            <div className="statCap">출발까지</div>
-          </div>
-          <div>
-            <span className="statNum">
-              <span className="statNum" data-count={String(SPOTS_COUNT)}>
-                0
-              </span>
-            </span>
-            <div className="statCap">둘러볼 스팟</div>
-          </div>
-          <div>
-            <span className="statNum">
-              <span className="statNum" data-count="5">
-                0
-              </span>
-            </span>
-            <div className="statCap">4박 5일</div>
-          </div>
         </div>
       </header>
 

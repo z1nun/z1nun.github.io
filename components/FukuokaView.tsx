@@ -18,11 +18,6 @@ import ScrollFx from "@/components/ScrollFx";
 // A step shape shared by OUTBOUND / ARRIVAL / RETURN_STEPS.
 type Step = { time: string; title: string; body: string };
 
-// Hero-stat numbers EXTRACTED in the view from COST_TOTAL (no new copy in lib).
-// "약 38만원" → 38 ; "약 18시간" → 18. parseInt on the first digit run.
-const COST_NUM = parseInt(COST_TOTAL.total.replace(/[^0-9]/g, ""), 10); // 38
-const TIME_NUM = parseInt(COST_TOTAL.time.replace(/[^0-9]/g, ""), 10); // 18
-
 // Left scroll-spy nav items (desktop) — order matches section ids s1..s8.
 const NAV = [
   { id: "s1", n: "01", t: "총비용" },
@@ -78,35 +73,6 @@ export default function FukuokaView() {
         <h1>후쿠오카 여행 계획 🏯</h1>
         <div className={styles.lead}>
           페리로 가서 비행기로 돌아오는 3박 4일
-        </div>
-        <div className="stats">
-          <div>
-            <span className="statNum">
-              {/* unit is a sibling <em> OUTSIDE the counted span (NIT-4) */}
-              <span className="statNum" data-count={String(COST_NUM)}>
-                0
-              </span>
-              <em> 만원</em>
-            </span>
-            <div className="statCap">교통비(1인)</div>
-          </div>
-          <div>
-            <span className="statNum">
-              <span className="statNum" data-count={String(TIME_NUM)}>
-                0
-              </span>
-              <em> 시간</em>
-            </span>
-            <div className="statCap">총 이동시간</div>
-          </div>
-          <div>
-            <span className="statNum">
-              <span className="statNum" data-count="4">
-                0
-              </span>
-            </span>
-            <div className="statCap">3박 4일</div>
-          </div>
         </div>
       </header>
 
