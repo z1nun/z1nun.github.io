@@ -41,7 +41,7 @@ export default function FukuokaPage() {
         </div>
 
         <section>
-          <h2>💰 총 교통비 (2인)</h2>
+          <h2>💰 총 교통비 (1인)</h2>
           <div className={styles.costCard}>
             {COST_ROWS.map((r) => (
               <div key={r.item} className={styles.costRow}>
@@ -93,7 +93,7 @@ export default function FukuokaPage() {
         <section>
           <h2>✈️ 1/15(금) — 오는 길</h2>
           <p className={styles.note}>
-            이코노미 성인 2인 총액 · 2026-10-02 검색 기준 (제주항공 제외)
+            이코노미 성인 1인 총액 · 2026-10-02 검색 기준 (제주항공 제외) · 2인은 ×2
           </p>
           <div className={styles.flights}>
             {FLIGHTS.map((f) => (
@@ -102,7 +102,7 @@ export default function FukuokaPage() {
                   <b>
                     {f.airline} {f.flight}
                   </b>
-                  <span className={styles.flightPrice}>{f.price2}</span>
+                  <span className={styles.flightPrice}>{f.price1}</span>
                 </div>
                 <div className={styles.flightTime}>
                   {f.dep} → {f.arr}

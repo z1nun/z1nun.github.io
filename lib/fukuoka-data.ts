@@ -1,49 +1,49 @@
 // 후쿠오카 2027.1.12(화)~1.15(금) — 교통편 가이드 데이터
-// 기준: 성인 2인 · 가는 편 페리 + 오는 편 비행기 (제주항공 제외)
+// 기준: 성인 1인 · 가는 편 페리 + 오는 편 비행기 (제주항공 제외)
 // 가격 조사일: 2026-10-02 (항공권은 변동 — 예매 시점에 재확인)
 
 export interface CostRow {
   item: string;
   detail: string;
-  cost: string; // 2인 기준
+  cost: string; // 1인 기준
 }
 
 export const COST_ROWS: CostRow[] = [
   {
     item: "춘천 → 부산 (기차)",
     detail: "ITX-청춘(용산) + KTX(부산역) · 약 4시간 30분~5시간",
-    cost: "약 131,000원",
+    cost: "약 65,500원",
   },
   {
     item: "카멜리아 페리 (부산 → 하카타)",
     detail: "2등실 편도 + 유류할증·터미널료 포함",
-    cost: "약 218,000원",
+    cost: "약 109,000원",
   },
   {
     item: "하카타항 → 시내 버스",
     detail: "하카타역·텐진까지 약 15분",
-    cost: "약 6,000원",
+    cost: "약 3,000원",
   },
   {
     item: "시내 → 후쿠오카공항 지하철",
     detail: "하카타역에서 2정거장 · 약 6분",
-    cost: "약 5,000원",
+    cost: "약 2,500원",
   },
   {
     item: "비행기 (후쿠오카 → 인천)",
     detail: "진에어 저녁편 기준 · 10/2 검색가",
-    cost: "약 180,000~260,000원",
+    cost: "약 90,000~130,000원",
   },
   {
     item: "인천공항 → 춘천 리무진",
-    detail: "심야 우등 29,300원/인",
-    cost: "약 59,000원",
+    detail: "심야 우등",
+    cost: "29,300원",
   },
 ];
 
 export const COST_TOTAL = {
-  total: "약 60만~68만원",
-  note: "항공 특가(진마켓 등)를 잡으면 약 55만원까지. 시외버스로 가면 -4.4만원 추가 절약",
+  total: "약 30만~34만원",
+  note: "항공 특가(진마켓 등)를 잡으면 약 28만원까지. 2인이면 약 60만~68만원. 시외버스로 가면 1인 -2.2만원 추가 절약",
 };
 
 export interface Step {
@@ -96,7 +96,7 @@ export interface Flight {
   flight: string;
   dep: string;
   arr: string;
-  price2: string; // 2인, 10/2 검색 기준
+  price1: string; // 1인, 10/2 검색 기준
   note?: string;
 }
 
@@ -106,15 +106,15 @@ export const FLIGHTS: Flight[] = [
     flight: "LJ266",
     dep: "18:25 후쿠오카",
     arr: "19:50 인천",
-    price2: "약 18만~26만원",
-    note: "가장 늦게까지 놀 수 있는 편. 특가 시 2인 13만~16만원",
+    price1: "약 9만~13만원",
+    note: "가장 늦게까지 놀 수 있는 편. 특가 시 1인 6.5만~8만원",
   },
   {
     airline: "에어서울",
     flight: "RS724",
     dep: "17:00 후쿠오카",
     arr: "18:35 인천",
-    price2: "약 20만~28만원",
+    price1: "약 10만~14만원",
     note: "리무진 연결이 가장 여유로운 시간대",
   },
   {
@@ -122,7 +122,7 @@ export const FLIGHTS: Flight[] = [
     flight: "KE 저녁편",
     dep: "오후~저녁",
     arr: "인천",
-    price2: "약 28만~40만원",
+    price1: "약 14만~20만원",
     note: "일 4편 운항 — 변경·결항 대응이 가장 유연",
   },
 ];
