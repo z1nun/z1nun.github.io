@@ -6,43 +6,51 @@ export interface CostRow {
   item: string;
   detail: string;
   cost: string; // 1인 기준
+  time: string; // 소요시간
 }
 
 export const COST_ROWS: CostRow[] = [
   {
     item: "춘천 → 부산 (기차)",
-    detail: "ITX-청춘(용산) + KTX(부산역) · 약 4시간 30분~5시간",
+    detail: "ITX-청춘(용산) + KTX(부산역)",
     cost: "약 65,500원",
+    time: "4시간 30분~5시간",
   },
   {
     item: "카멜리아 페리 (부산 → 하카타)",
     detail: "1등 양실 2인실(실속 할인Ⅰ) + 유류할증·항만·세금 포함 — 예약 화면 확정가",
     cost: "121,000원",
+    time: "9시간 (선내 1박)",
   },
   {
     item: "하카타항 → 시내 버스",
-    detail: "하카타역·텐진까지 약 15분",
+    detail: "하카타역·텐진까지",
     cost: "약 3,000원",
+    time: "약 15분",
   },
   {
     item: "시내 → 후쿠오카공항 지하철",
-    detail: "하카타역에서 2정거장 · 약 6분",
+    detail: "하카타역에서 2정거장",
     cost: "약 2,500원",
+    time: "약 6분",
   },
   {
     item: "비행기 (후쿠오카 → 인천)",
     detail: "진에어 저녁편 기준 · 10/2 검색가",
     cost: "약 90,000~130,000원",
+    time: "1시간 25분",
   },
   {
     item: "인천공항 → 춘천 리무진",
     detail: "심야 우등",
     cost: "29,300원",
+    time: "2시간 50분",
   },
 ];
 
 export const COST_TOTAL = {
   total: "약 31만~35만원",
+  totalTime: "순수 이동 약 18시간 (환승 대기 제외 · 이 중 9시간은 자면서 이동)",
   note: "항공 특가(진마켓 등)를 잡으면 약 29만원까지. 2인이면 약 62만~70만원. 시외버스로 가면 1인 -2.2만원 추가 절약",
 };
 

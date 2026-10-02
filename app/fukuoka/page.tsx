@@ -49,13 +49,17 @@ export default function FukuokaPage() {
                   <b>{r.item}</b>
                   <span className={styles.costDetail}>{r.detail}</span>
                 </div>
-                <div className={styles.costPrice}>{r.cost}</div>
+                <div className={styles.costRight}>
+                  <div className={styles.costPrice}>{r.cost}</div>
+                  <div className={styles.costTime}>⏱ {r.time}</div>
+                </div>
               </div>
             ))}
             <div className={styles.costTotal}>
               <span>합계</span>
               <b>{COST_TOTAL.total}</b>
             </div>
+            <div className={styles.costTimeTotal}>⏱ {COST_TOTAL.totalTime}</div>
             <div className={styles.costNote}>{COST_TOTAL.note}</div>
           </div>
         </section>
