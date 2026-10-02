@@ -314,6 +314,22 @@
   color: var(--fuk-accent-strong);
 }
 
+/* ---------- Section link (예매 등 외부 링크 한 줄) ---------- */
+.sectionLink {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.sectionLink a {
+  color: var(--fuk-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sectionLink a:hover {
+  text-decoration: underline;
+}
+
 /* ---------- Plan compare ---------- */
 .plans {
   display: grid;

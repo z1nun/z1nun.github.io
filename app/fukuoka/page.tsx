@@ -10,6 +10,7 @@ import {
   CAUTIONS,
   PLAN_COMPARE,
   VJW,
+  FERRY_LINK,
 } from "@/lib/fukuoka-data";
 
 export const metadata: Metadata = {
@@ -82,6 +83,12 @@ export default function FukuokaPage() {
               </div>
             ))}
           </div>
+          <p className={styles.sectionLink}>
+            ⛴{" "}
+            <a href={FERRY_LINK.url} target="_blank" rel="noreferrer">
+              {FERRY_LINK.label} ↗
+            </a>
+          </p>
         </section>
 
         <section>

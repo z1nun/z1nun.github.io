@@ -80,6 +80,12 @@ export const OUTBOUND: Step[] = [
   },
 ];
 
+// 페리 예매 링크
+export const FERRY_LINK = {
+  label: "고려훼리 — 뉴카멜리아 공식 예약",
+  url: "https://www.koreaferry.kr/",
+};
+
 // 1/13(수) 도착 후 할 일
 export const ARRIVAL: Step[] = [
   {
