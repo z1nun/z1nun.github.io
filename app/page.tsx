@@ -41,7 +41,6 @@ export default function Home() {
     <main className={styles.main}>
       <header className={styles.hero}>
         <h1>계획 🗂</h1>
-        <p>우리의 여행·데이트 계획 모음</p>
       </header>
       <div className={styles.list}>
         {PLANS.map((p) =>
