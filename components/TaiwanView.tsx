@@ -50,7 +50,7 @@ export default function TaiwanView({
       <div id="pbar" className={`${styles.pbar} pbar`} aria-hidden />
 
       {/* left scroll-spy spine (desktop only; display:none < 1024px) */}
-      <nav id="twNav" className="nav" aria-label="섹션">
+      <nav id="twNav" className={`${styles.nav} nav`} aria-label="섹션">
         {NAV.map((item) => (
           <a key={item.id} href={`#${item.id}`}>
             <span className="n">{item.n}</span>
