@@ -665,3 +665,87 @@
   background: var(--fuk-accent);
   color: #fff;
 }
+
+/* ---------- 갈만한 곳 (spots) ---------- */
+.spotCat {
+  margin-top: 24px;
+}
+
+.spotCatTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--fuk-ink);
+}
+
+.spotCount {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
+  font-weight: 700;
+  background: var(--fuk-accent-soft);
+  color: var(--fuk-accent);
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+
+.spotTip {
+  font-size: 12.5px;
+  color: var(--fuk-muted);
+  border-left: 3px solid var(--fuk-accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.spots {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 600px) {
+  .spots {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.spot {
+  background: var(--card);
+  border: 1px solid var(--fuk-hair);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+.spotHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 10px;
+  flex-wrap: wrap;
+}
+
+.spotHead a {
+  font-weight: 700;
+  color: var(--fuk-accent);
+  text-decoration: none;
+}
+
+.spotHead a:hover {
+  text-decoration: underline;
+}
+
+.spotArea {
+  font-family: var(--fuk-mono);
+  font-size: 11px;
+  color: var(--fuk-muted);
+  white-space: nowrap;
+}
+
+.spotDesc {
+  margin-top: 2px;
+  color: var(--fuk-muted);
+  font-size: 12.5px;
+}

@@ -10,6 +10,8 @@ import {
   RETURN_STEPS,
   CAUTIONS,
   VJW,
+  SPOT_CATEGORIES,
+  SEASON_TIPS,
   type Flight,
   type Step,
 } from "@/lib/fukuoka-data";
@@ -22,7 +24,8 @@ const NAV = [
   { id: "s3", n: "03", t: "오는 날" },
   { id: "s4", n: "04", t: "주의사항" },
   { id: "s5", n: "05", t: "입국준비" },
-  { id: "s6", n: "06", t: "일정" },
+  { id: "s6", n: "06", t: "갈만한 곳" },
+  { id: "s7", n: "07", t: "일정" },
 ] as const;
 
 // Single-left-rail vertical timeline (shared by 가는 날 / 오는 날).
@@ -229,6 +232,54 @@ export default function FukuokaView() {
         <section id="s6" className="rv">
           <div className="sechead">
             <div className="secno">06</div>
+            <div>
+              <h2>📍 갈만한 곳</h2>
+              <div className="why">
+                하카타 숙소 기준 — 이름을 누르면 구글맵이 열려요.
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.facts} style={{ marginBottom: 20 }}>
+            {SEASON_TIPS.map((t) => (
+              <div key={t.title} className={styles.fact}>
+                <b>{t.title}</b>
+                {t.body}
+              </div>
+            ))}
+          </div>
+
+          {SPOT_CATEGORIES.map((cat) => (
+            <div key={cat.key} className={styles.spotCat}>
+              <h3 className={styles.spotCatTitle}>
+                {cat.emoji} {cat.title}
+                <span className={styles.spotCount}>{cat.spots.length}</span>
+              </h3>
+              {cat.tip && <p className={styles.spotTip}>{cat.tip}</p>}
+              <div className={styles.spots}>
+                {cat.spots.map((sp) => (
+                  <div key={sp.name} className={`${styles.spot} rv`}>
+                    <div className={styles.spotHead}>
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sp.q)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {sp.name} ↗
+                      </a>
+                      <span className={styles.spotArea}>{sp.area}</span>
+                    </div>
+                    <div className={styles.spotDesc}>{sp.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+
+        <section id="s7" className="rv">
+          <div className="sechead">
+            <div className="secno">07</div>
             <div>
               <h2>🗓 여행 일정</h2>
               <div className="why">항공권 확정 후 날짜별 코스가 들어갈 자리.</div>
