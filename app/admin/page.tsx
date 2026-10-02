@@ -30,6 +30,13 @@ const ENDPOINTS: Endpoint[] = [
     access: "password",
   },
   {
+    path: "/fukuoka",
+    emoji: "🏯",
+    title: "후쿠오카 여행",
+    desc: "3박 4일 — 교통편 예매 전략",
+    access: "password",
+  },
+  {
     path: "/wonju.html",
     emoji: "🏞",
     title: "원주 데이트",

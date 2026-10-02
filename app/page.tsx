@@ -13,6 +13,13 @@ interface Plan {
 
 const PLANS: Plan[] = [
   {
+    href: "/fukuoka",
+    emoji: "🏯",
+    title: "후쿠오카 여행",
+    desc: "3박 4일 — 교통편(비행기 vs 배) 예매 전략",
+    date: "2027.01.12 – 01.15",
+  },
+  {
     href: "/taiwan",
     emoji: "🇹🇼",
     title: "대만 여행",
