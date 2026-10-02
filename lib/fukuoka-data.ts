@@ -50,7 +50,8 @@ export const COST_ROWS: CostRow[] = [
 
 export const COST_TOTAL = {
   total: "약 31만~35만원",
-  totalTime: "순수 이동 약 18시간 (환승 대기 제외 · 이 중 9시간은 자면서 이동)",
+  time: "약 18시간",
+  totalTime: "환승 대기 제외 · 18시간 중 9시간은 선내에서 자면서 이동",
   note: "항공 특가(진마켓 등)를 잡으면 약 29만원까지. 2인이면 약 62만~70만원. 시외버스로 가면 1인 -2.2만원 추가 절약",
 };
 
