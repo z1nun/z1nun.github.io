@@ -22,10 +22,10 @@ import { type ReactNode } from "react";
 
 // ---- module-local motion tokens (see 02-design.md Motion Tokens) ----
 const EASE = [0.22, 1, 0.36, 1] as const; // custom cubic-bezier, NOT a library default
-const RISE = 16; // translateY distance (px) — small, 375px-safe
-const DUR = 0.45; // seconds, "normal" enter/reveal
+const RISE = 28; // translateY distance (px) — small, 375px-safe
+const DUR = 0.65; // seconds, "normal" enter/reveal
 const DUR_FAST = 0.28; // seconds, hover/press
-const STAGGER = 0.07; // 70ms between staggered children
+const STAGGER = 0.11; // 70ms between staggered children
 
 type AsTag = "div" | "section" | "header" | "ul" | "li";
 
@@ -93,7 +93,7 @@ export function Reveal({
       className={className}
       initial={hidden}
       whileInView={shown}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.3 }}
     >
       {children}
     </MotionTag>
@@ -152,7 +152,7 @@ export function RevealGroup({
       variants={groupVariants(stagger)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.2 }}
     >
       {children}
     </MotionTag>
@@ -202,7 +202,7 @@ export function MotionCard({ children, ...rest }: MotionCardProps) {
   // border-color + arrow nudge (no transform) to avoid a double-translate (NIT-1).
   return (
     <motion.div
-      whileHover={{ y: -4, boxShadow: "0 3px 14px rgba(0,0,0,0.07)" }}
+      whileHover={{ y: -6, boxShadow: "0 12px 32px rgba(0,0,0,0.10)" }}
       whileTap={{ y: -1 }}
       transition={{ duration: DUR_FAST, ease: EASE }}
       {...rest}

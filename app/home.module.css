@@ -6,10 +6,10 @@
 
 .main {
   /* --- local theme: warm clay/terracotta (unused family) --- */
-  --home-paper: #fbf7f3;
-  --home-ink: #2a2320;
-  --home-muted: #8a7b70;
-  --home-hair: #e9ddd2;
+  --home-paper: #ffffff;
+  --home-ink: #141414;
+  --home-muted: #737373;
+  --home-hair: #ececec;
   --home-accent: #b5623a;         /* terracotta — single accent */
   --home-accent-strong: #8f4a2b;  /* emphasis */
   --home-accent-soft: #f6e7dc;    /* soft hover wash */

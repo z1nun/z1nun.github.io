@@ -12,8 +12,8 @@
 .wrap {
   --tw-paper: #faf6f1;
   --tw-ink: #2c2420;
-  --tw-muted: #8a7a6d;
-  --tw-hair: #e8ddd2;
+  --tw-muted: #737373;
+  --tw-hair: #ececec;
   --tw-red: #c0392b;
   --tw-red-dark: #96281b;
   --tw-amber: #e67e22;
@@ -200,4 +200,28 @@
   .wrap section {
     margin-top: 64px;
   }
+}
+
+
+/* ===== 화이트 클린 오버라이드 (다크 히어로 폐기) ===== */
+.hero {
+  background: radial-gradient(
+    480px 240px at 50% -60px,
+    rgba(230, 126, 34, 0.09),
+    transparent 70%
+  );
+  color: var(--tw-ink);
+}
+
+.hero h1 {
+  color: var(--tw-ink);
+}
+
+.kicker {
+  color: var(--tw-red);
+}
+
+.sub {
+  color: var(--tw-muted);
+  opacity: 1;
 }
