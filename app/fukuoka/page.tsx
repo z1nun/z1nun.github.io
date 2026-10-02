@@ -100,7 +100,7 @@ export default function FukuokaPage() {
         <section>
           <h2>✈️ 1/15(금) — 오는 길</h2>
           <p className={styles.note}>
-            이코노미 성인 1인 총액 · 2026-10-02 검색 기준 (제주항공 제외) · 2인은 ×2
+            이코노미 성인 1인 총액 (제주항공 제외) · 2026-10-02 검색 최저가 약 16만원 · 2인은 ×2
           </p>
           <div className={styles.flights}>
             {FLIGHTS.map((f) => (
