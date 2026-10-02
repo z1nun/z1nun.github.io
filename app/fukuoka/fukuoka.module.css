@@ -26,6 +26,63 @@
   color: #fff;
 }
 
+/* ============================================================
+   ScrollFx port — PER-PAGE ACCENT (geometry lives in scrollfx.css).
+   Global classes (.pbar/.nav/.secno/.stats/.why) are colored here,
+   scoped under .page (NIT-7). :root stays frozen.
+   --fuk-muted-strong: AA for 13px .why (#6b6b6b ≈ 4.9:1 on white, NIT-6).
+   ============================================================ */
+.page {
+  --fuk-muted-strong: #6b6b6b;
+}
+
+/* progress bar accent (id #pbar carries styles.pbar + global .pbar geometry) */
+.pbar {
+  background: var(--fuk-accent);
+}
+
+/* nav colors (geometry is global .nav) */
+.page :global(.nav) a {
+  color: var(--fuk-muted);
+}
+.page :global(.nav) a:global(.on) {
+  color: var(--fuk-accent);
+  font-weight: 700;
+}
+
+/* hero stats accent */
+.page :global(.stats) {
+  border-top: 1px solid var(--fuk-ink);
+}
+.page :global(.stats) > div {
+  border-right: 1px solid var(--fuk-hair);
+}
+.page :global(.stats) > div:last-child {
+  border-right: 0;
+}
+.page :global(.statNum) em {
+  color: var(--fuk-muted);
+}
+.page :global(.statCap) {
+  color: var(--fuk-muted-strong);
+}
+
+/* sechead accent + AA-safe why */
+.page :global(.secno) {
+  color: var(--fuk-accent);
+}
+.page :global(.why) {
+  color: var(--fuk-muted-strong);
+}
+
+/* hero lead paragraph */
+.lead {
+  font-size: 15px;
+  color: var(--fuk-muted);
+  max-width: 640px;
+  margin: 0 auto 10px;
+}
+
 /* defensive link-color guard: any <a> under .page matches the local
    indigo accent instead of global var(--sight) (.vjw a overrides within its scope) */
 .page a {

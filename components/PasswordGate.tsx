@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import styles from "./PasswordGate.module.css";
 
 // SHA-256("0602") — 소스에 평문 비밀번호를 남기지 않기 위해 해시로만 비교
@@ -24,12 +23,13 @@ export default function PasswordGate({
 }: {
   children: React.ReactNode;
 }) {
-  // null = 아직 localStorage 확인 전 (SSR/hydration 동안 콘텐츠 숨김 유지)
+  // null = 아직 localStorage 확인 전 (SSR/hydration 동안 콘텐츠 숨김 유지) — 3-state preserved
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [error, setError] = useState("");
   const [shaking, setShaking] = useState(false);
+  // 해제 직후 오버레이가 CSS 페이드아웃된 뒤 onAnimationEnd로 언마운트되도록 추적
+  const [overlayLeaving, setOverlayLeaving] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const reduce = useReducedMotion();
 
   useEffect(() => {
     try {
@@ -47,6 +47,10 @@ export default function PasswordGate({
       try {
         localStorage.setItem(KEY, HASH);
       } catch {}
+      // reduced-motion: no fade-out animation → onAnimationEnd would never fire,
+      // so skip the leaving state entirely (overlay unmounts at once).
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setOverlayLeaving(!reduced);
       setAuthed(true);
     } else {
       setError("비밀번호가 달라요");
@@ -55,58 +59,49 @@ export default function PasswordGate({
     }
   }
 
-  // M6 cross-fade: children render on authed===true and fade in (mount ONCE,
-  // no key change — AC-6). The gate overlay exits via AnimatePresence when
-  // authed flips true. The fixed overlay (z-index 9999) stays above the content
-  // during the ~0.3s overlap, so content cross-fades in beneath the exiting gate.
-  // NO AnimatePresence mode="wait" (would serialize into an instant swap) — NIT-4.
-  // null = nothing rendered (pre-localStorage check) — 3-state preserved.
+  // 3-state:
+  //   null  → render NOTHING (pre-localStorage check; SSR/hydration guard)
+  //   true  → children fade in (CSS @keyframes fadeIn, reduced-motion → instant)
+  //   false → gate overlay (+ shake on wrong pw). On unlock, overlay fades out
+  //           (overlayLeaving) then unmounts via onAnimationEnd.
+  // The overlay (z-index 9999) stays above the content during the ~0.3s overlap,
+  // so content cross-fades in beneath the exiting gate. No framer-motion.
+  if (authed === null) return null;
+
   return (
     <>
-      {authed === true &&
-        (reduce ? (
-          <>{children}</>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-          >
-            {children}
-          </motion.div>
-        ))}
+      {authed === true && <div className={styles.fadeIn}>{children}</div>}
 
-      <AnimatePresence>
-        {authed === false && (
-          <motion.div
-            key="gate-overlay"
-            className={styles.overlay}
-            initial={false}
-            exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.3 } }}
+      {(authed === false || overlayLeaving) && (
+        <div
+          className={`${styles.overlay} ${
+            overlayLeaving ? styles.overlayLeaving : ""
+          }`}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget && overlayLeaving)
+              setOverlayLeaving(false);
+          }}
+        >
+          {/* .card keeps its base translate(-50%,-50%) + shake keyframes. */}
+          <div
+            className={`${styles.card} ${shaking ? styles.shake : ""}`}
+            onAnimationEnd={() => setShaking(false)}
           >
-            {/* .card keeps its base translate(-50%,-50%) + shake keyframes.
-                exit is opacity-only (no scale) so it never fights the centering. */}
-            <motion.div
-              className={`${styles.card} ${shaking ? styles.shake : ""}`}
-              onAnimationEnd={() => setShaking(false)}
-              exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.25 } }}
-            >
-              <input
-                ref={inputRef}
-                type="password"
-                aria-label="비밀번호"
-                inputMode="numeric"
-                maxLength={12}
-                autoComplete="off"
-                placeholder="····"
-                onKeyDown={(e) => e.key === "Enter" && tryPassword()}
-              />
-              <button onClick={tryPassword}>열기</button>
-              <div className={styles.error}>{error}</div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <input
+              ref={inputRef}
+              type="password"
+              aria-label="비밀번호"
+              inputMode="numeric"
+              maxLength={12}
+              autoComplete="off"
+              placeholder="····"
+              onKeyDown={(e) => e.key === "Enter" && tryPassword()}
+            />
+            <button onClick={tryPassword}>열기</button>
+            <div className={styles.error}>{error}</div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

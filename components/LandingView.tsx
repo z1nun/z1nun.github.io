@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "@/app/home.module.css";
-import { Reveal, RevealGroup, RevealItem, MotionCard } from "@/components/motion/Reveal";
-import ProgressBar from "@/components/motion/ProgressBar";
+import ScrollFx from "@/components/ScrollFx";
 
 export interface Plan {
   href: string;
@@ -45,6 +44,9 @@ export default function LandingView({ plans }: { plans: Plan[] }) {
   // D-day computed POST-MOUNT only (useEffect) so the static-export HTML bakes
   // no stale number and there is no hydration mismatch (AC-14). Empty record at
   // first paint → ddayLabel(undefined) → nothing rendered in the reserved slot.
+  // Decision: landing D-day shows the FINAL label (no count-up) — count-up on a
+  // post-mount async value would risk the hydration-safe guarantee; the
+  // "big number" treatment comes from size/weight (CSS), not animation.
   const [ddays, setDdays] = useState<Record<string, number | null>>({});
 
   useEffect(() => {
@@ -65,31 +67,37 @@ export default function LandingView({ plans }: { plans: Plan[] }) {
 
   return (
     <main className={styles.main}>
-      <ProgressBar color="#b5623a" />
-      <Reveal immediate as="header" className={styles.hero}>
+      <div id="pbar" className={`${styles.pbar} pbar`} aria-hidden />
+
+      {/* hero: above-the-fold. data-hero marks it for ScrollFx (no count-up here). */}
+      <header data-hero className={`${styles.hero} rv`}>
         <div className={styles.kicker}>TRIP INDEX · 2026 — 2027</div>
         <h1>계획 🗂</h1>
-      </Reveal>
+      </header>
 
-      {/* first card group is above-the-fold → immediate (mount entrance), staggered */}
-      <RevealGroup immediate as="ul" className={styles.list}>
-        {plans.map((p) => (
-          <RevealItem as="li" key={p.href} className={styles.listItem}>
-            <MotionCard>
-              {p.legacy ? (
-                // legacy 단일 HTML은 Next 라우터를 거치지 않는 정적 파일
-                <a href={p.href} className={styles.card}>
-                  <CardInner plan={p} label={ddayLabel(ddays[p.href])} />
-                </a>
-              ) : (
-                <Link href={p.href} className={styles.card}>
-                  <CardInner plan={p} label={ddayLabel(ddays[p.href])} />
-                </Link>
-              )}
-            </MotionCard>
-          </RevealItem>
+      {/* .rv stagger via inline transition-delay (reference-style), driven by ScrollFx. */}
+      <ul className={styles.list}>
+        {plans.map((p, i) => (
+          <li
+            key={p.href}
+            className={`${styles.listItem} rv`}
+            style={{ transitionDelay: `${i * 70}ms` }}
+          >
+            {p.legacy ? (
+              // legacy 단일 HTML은 Next 라우터를 거치지 않는 정적 파일
+              <a href={p.href} className={styles.card}>
+                <CardInner plan={p} label={ddayLabel(ddays[p.href])} />
+              </a>
+            ) : (
+              <Link href={p.href} className={styles.card}>
+                <CardInner plan={p} label={ddayLabel(ddays[p.href])} />
+              </Link>
+            )}
+          </li>
         ))}
-      </RevealGroup>
+      </ul>
+
+      <ScrollFx barSelector="#pbar" />
     </main>
   );
 }

@@ -42,6 +42,77 @@
   color: #fff;
 }
 
+/* ============================================================
+   ScrollFx port — PER-PAGE ACCENT (geometry lives in scrollfx.css).
+   NO .page wrapper here — .hero and .wrap are SIBLINGS, so global
+   classes are scoped under BOTH roots (NIT-7).
+   --tw-muted-strong: AA for 13px .why (#6b6b6b ≈ 4.9:1 on white, NIT-6).
+   ============================================================ */
+.hero,
+.wrap {
+  --tw-muted-strong: #6b6b6b;
+}
+
+/* progress bar accent */
+.pbar {
+  background: var(--tw-red);
+}
+
+/* nav colors — target the LOCAL .nav module class the <nav> also carries
+   (geometry comes from the global .nav in scrollfx.css). */
+.nav a {
+  color: var(--tw-muted);
+}
+.nav a:global(.on) {
+  color: var(--tw-red);
+  font-weight: 700;
+}
+
+/* hero stats accent (scope root .hero) */
+.hero :global(.stats) {
+  border-top: 1px solid var(--tw-ink);
+}
+.hero :global(.stats) > div {
+  border-right: 1px solid var(--tw-hair);
+}
+.hero :global(.stats) > div:last-child {
+  border-right: 0;
+}
+.hero :global(.statNum) em {
+  color: var(--tw-red);
+}
+.hero :global(.statCap) {
+  color: var(--tw-muted-strong);
+}
+
+/* sechead accent + AA-safe why (scope roots .hero + .wrap) */
+.hero :global(.secno),
+.wrap :global(.secno) {
+  color: var(--tw-red);
+}
+.hero :global(.why),
+.wrap :global(.why) {
+  color: var(--tw-muted-strong);
+}
+
+/* hero lead paragraph */
+.lead {
+  font-size: 15px;
+  color: var(--tw-muted);
+  max-width: 640px;
+  margin: 0 auto 10px;
+}
+
+/* flight card now lives inside a .rv section with a .sechead (keeps its tuck
+   removed — it's no longer directly under the hero). */
+.flightCardSection {
+  margin-top: 0;
+}
+/* neutralize the old -16px hero tuck — card now follows a .sechead, not the hero */
+.flightCardSection .flightCard {
+  margin: 0 auto;
+}
+
 .hero {
   background: linear-gradient(
     135deg,

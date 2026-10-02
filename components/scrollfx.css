@@ -1,0 +1,156 @@
+/* ============================================================
+   ScrollFx — page-agnostic GEOMETRY + MOTION for the reference
+   port (pbar / #nav spine / .rv reveal / .stats / .secno / .sechead / .why).
+   Ported from 감리대비_기술설명.html <style> (L17-72, L162-164).
+
+   Bare, UNHASHED class names on purpose: ScrollFx toggles `.rv.inview`
+   and `.on` at runtime via document.querySelectorAll / classList, so
+   these must resolve as plain globals. Imported once by ScrollFx.tsx.
+
+   COLORS are NOT here — each page module supplies accent via
+   :global() scoped under its own wrapper (NIT-7):
+     fukuoka  .page :global(.secno){ color: var(--fuk-accent) }
+     landing  .main :global(.secno){ color: var(--home-accent) }
+     taiwan   .hero :global(.secno), .wrap :global(.secno){ color: var(--tw-red) }
+   :root stays frozen — only utility CLASSES added here.
+   ============================================================ */
+
+/* ---- progress bar (reference L17) ---- */
+.pbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 60;
+  pointer-events: none;
+  /* color comes from the page module's `#pbar { background: var(--accent) }` */
+}
+
+/* ---- left scroll-spy nav (reference L20-27) ---- */
+.nav {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  font-size: 11px;
+}
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 5px 0;
+  letter-spacing: 0.05em;
+  /* color comes from the page module (muted → accent on .on) */
+}
+.nav a .n {
+  font-size: 10px;
+  width: 20px;
+  font-variant-numeric: tabular-nums;
+}
+.nav a .t {
+  opacity: 0;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.nav a:hover .t {
+  opacity: 1;
+}
+/* .on is toggled by ScrollFx (global, unhashed); color lives in the page module. */
+.nav a.on .t {
+  opacity: 1;
+}
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  } /* mobile/tablet: hidden, out of flow — 375px-safe */
+}
+.nav a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ---- hero stats (reference L33-41) — geometry only ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 560px;
+  margin: 18px auto 0;
+  /* border-top color supplied by page module */
+}
+.stats > div {
+  padding: 16px 4px 6px;
+  /* border-right color supplied by page module */
+}
+.statNum {
+  font-size: clamp(26px, 7vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+  display: block;
+}
+.statNum em {
+  font-style: normal;
+  font-size: 0.5em;
+  font-weight: 700;
+  /* muted color supplied by page module */
+}
+.statCap {
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  margin-top: 2px;
+  /* muted color supplied by page module */
+}
+
+/* ---- sechead: secno + h2 + why (reference L45-49) — geometry only ---- */
+.sechead {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: start;
+}
+.secno {
+  font-size: clamp(40px, 9vw, 60px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  /* accent color supplied by page module */
+}
+.why {
+  font-size: 13px;
+  margin-top: 6px;
+  max-width: 620px;
+  /* muted-strong color supplied by page module (NIT-6: AA at 13px) */
+}
+@media (max-width: 700px) {
+  .sechead {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* ---- reveal (reference L162-164) — translateY only, 375px-safe ---- */
+.rv {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.rv.inview {
+  opacity: 1;
+  transform: none;
+} /* .inview toggled by ScrollFx */
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .nav a .t {
+    transition: none;
+  }
+}

@@ -27,6 +27,12 @@
   color: #fff;
 }
 
+/* ScrollFx port — landing only needs the pbar accent (no nav/stats/sechead).
+   Geometry lives in scrollfx.css; accent scoped here (NIT-7, root .main). */
+.pbar {
+  background: var(--home-accent);
+}
+
 .hero {
   text-align: center;
   padding: 48px 0 28px;
