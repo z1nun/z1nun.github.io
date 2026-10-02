@@ -33,7 +33,7 @@ const ENDPOINTS: Endpoint[] = [
     path: "/fukuoka",
     emoji: "🏯",
     title: "후쿠오카 여행",
-    desc: "3박 4일 — 교통편 예매 전략",
+    desc: "3박 4일 — 항공권 예매 전략",
     access: "password",
   },
   {

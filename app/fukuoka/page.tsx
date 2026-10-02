@@ -5,10 +5,10 @@ import FukuokaView from "@/components/FukuokaView";
 // "use client" FukuokaView (which carries the styles.page theme wrapper).
 export const metadata: Metadata = {
   title: "후쿠오카 여행 계획 · 1/12 – 1/15",
-  description: "후쿠오카 3박4일 — 페리 + 비행기 교통 가이드",
+  description: "후쿠오카 3박4일 — 왕복 비행기 + 리무진 교통 가이드",
   openGraph: {
     title: "후쿠오카 여행 계획 🏯 1/12 – 1/15",
-    description: "후쿠오카 3박4일 — 페리 + 비행기 교통 가이드",
+    description: "후쿠오카 3박4일 — 왕복 비행기 + 리무진 교통 가이드",
   },
 };
 

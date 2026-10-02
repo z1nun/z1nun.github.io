@@ -7,7 +7,7 @@ const PLANS: Plan[] = [
     href: "/fukuoka",
     emoji: "🏯",
     title: "후쿠오카 여행",
-    desc: "3박 4일 — 교통편(비행기 vs 배) 예매 전략",
+    desc: "3박 4일 — 항공권 예매 전략 + 이동 가이드",
     date: "2027.01.12 – 01.15",
     startDate: "2027-01-12", // NON-RENDERED — only used to compute D-day
   },
