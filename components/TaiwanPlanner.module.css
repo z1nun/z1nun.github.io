@@ -1,6 +1,17 @@
+/* ============================================================
+   TaiwanPlanner — refined to "Lantern Red" editorial base.
+   Inherits --tw-* from taiwan .wrap (renders inside it).
+   CSS ONLY — markup/classes/JS untouched.
+   JS-driven colors (.num bg, .chip on-state bg/border) are set
+   inline via style={{ background: CATS[...].color }} and are
+   DELIBERATELY NOT set here (JS wins; must stay category-colored).
+   Interactive sizing (.num 26px, .dayTab, .ctl 30px, .mapBox/
+   .mapLoading 380px, .chip shape) is UNCHANGED.
+   ============================================================ */
+
 .hint {
   font-size: 12.5px;
-  color: var(--muted);
+  color: var(--tw-muted);
   margin-bottom: 10px;
 }
 
@@ -13,17 +24,17 @@
   position: sticky;
   top: 0;
   z-index: 500;
-  background: var(--paper);
+  background: var(--tw-paper);     /* was var(--paper) — match sticky bg to page */
   padding: 10px 0 8px;
 }
 
 .dayTab {
   flex: 1;
-  min-width: 92px;
-  border: 1.5px solid var(--line);
+  min-width: 92px;                 /* UNCHANGED sizing */
+  border: 1.5px solid var(--tw-hair);
   border-radius: 12px;
   background: var(--card);
-  padding: 8px 4px;
+  padding: 8px 4px;                /* UNCHANGED */
   text-align: center;
   cursor: pointer;
   user-select: none;
@@ -38,12 +49,13 @@
 
 .dayTabDt {
   font-size: 11.5px;
-  color: var(--muted);
+  color: var(--tw-muted);
 }
 
+/* on-state uses --tw-red (NOT a JS-set color — this is a CSS state) */
 .dayTab.on {
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--tw-red);
+  border-color: var(--tw-red);
   color: #fff;
 }
 
@@ -52,13 +64,13 @@
 }
 
 .dayNote {
-  background: #fdf1e3;
-  border: 1px solid #f0d9ba;
+  background: var(--tw-red-soft);
+  border: 1px solid var(--tw-amber-line);
   border-radius: 10px;
   padding: 9px 12px;
   font-size: 13px;
   margin-bottom: 10px;
-  color: #7a5b2e;
+  color: var(--tw-amber-ink);
 }
 
 /* 타임라인 */
@@ -68,7 +80,7 @@
 
 .dayList li {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--tw-hair);
   border-radius: 12px;
   padding: 10px 12px;
   margin-bottom: 8px;
@@ -77,12 +89,15 @@
   gap: 10px;
 }
 
+/* .num: size/shape UNCHANGED; background set INLINE via JS — NOT here */
 .num {
   flex: none;
   width: 26px;
   height: 26px;
   border-radius: 50%;
   color: #fff;
+  font-family: var(--tw-mono);        /* tabular index numeral */
+  font-variant-numeric: tabular-nums;
   font-weight: 700;
   font-size: 13px;
   display: flex;
@@ -102,7 +117,7 @@
 
 .itemDesc {
   font-size: 12.5px;
-  color: var(--muted);
+  color: var(--tw-muted);
 }
 
 .ctl {
@@ -111,15 +126,16 @@
   gap: 4px;
 }
 
+/* .ctl button: 30px size UNCHANGED */
 .ctl button {
-  border: 1px solid var(--line);
-  background: #fbf8f4;
+  border: 1px solid var(--tw-hair);
+  background: var(--tw-btn-face);
   border-radius: 8px;
   width: 30px;
   height: 30px;
   font-size: 13px;
   cursor: pointer;
-  color: var(--ink);
+  color: var(--tw-ink);
 }
 
 .ctl button:disabled {
@@ -127,14 +143,14 @@
 }
 
 .ctl .rm {
-  color: var(--red);
+  color: var(--tw-red);
 }
 
 .emptyDay {
   text-align: center;
-  color: var(--muted);
+  color: var(--tw-muted);
   font-size: 13.5px;
-  border: 1.5px dashed var(--line);
+  border: 1.5px dashed var(--tw-hair);
   border-radius: 12px;
   padding: 22px 10px;
   margin-bottom: 8px;
@@ -148,7 +164,7 @@
 .chipGroupTitle {
   font-size: 13px;
   font-weight: 700;
-  color: var(--muted);
+  color: var(--tw-muted);
   margin-bottom: 6px;
 }
 
@@ -158,8 +174,9 @@
   gap: 7px;
 }
 
+/* .chip: shape/padding UNCHANGED; on-state bg/border set INLINE via JS */
 .chip {
-  border: 1.5px solid var(--line);
+  border: 1.5px solid var(--tw-hair);
   background: var(--card);
   border-radius: 999px;
   padding: 6px 13px;
@@ -179,12 +196,12 @@
 }
 
 .sharedBanner {
-  background: #eaf3ff;
-  border: 1px solid #c3ddf5;
+  background: var(--tw-info-soft);
+  border: 1px solid var(--tw-info-line);
   border-radius: 12px;
   padding: 10px 13px;
   font-size: 13px;
-  color: #2a5d8f;
+  color: var(--tw-info);
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -200,7 +217,7 @@
 
 .sharedSave {
   border: none;
-  background: #2a5d8f;
+  background: var(--tw-info);
   color: #fff;
   border-radius: 9px;
   padding: 7px 12px;
@@ -210,9 +227,9 @@
 }
 
 .sharedMine {
-  border: 1px solid #c3ddf5;
+  border: 1px solid var(--tw-info-line);
   background: #fff;
-  color: #2a5d8f;
+  color: var(--tw-info);
   border-radius: 9px;
   padding: 7px 12px;
   font-size: 12.5px;
@@ -224,12 +241,13 @@
   justify-content: flex-end;
   gap: 8px;
   margin-top: 10px;
+  flex-wrap: wrap;      /* 375px: let share + reset btns wrap instead of overflow */
 }
 
 .shareBtn {
-  border: 1px solid var(--sight);
+  border: 1px solid var(--tw-info);
   background: var(--card);
-  color: var(--sight);
+  color: var(--tw-info);
   border-radius: 10px;
   padding: 7px 14px;
   font-size: 13px;
@@ -238,9 +256,9 @@
 }
 
 .resetBtn {
-  border: 1px solid var(--line);
+  border: 1px solid var(--tw-hair);
   background: var(--card);
-  color: var(--muted);
+  color: var(--tw-muted);
   border-radius: 10px;
   padding: 7px 14px;
   font-size: 13px;
@@ -248,16 +266,16 @@
 }
 
 .resetArmed {
-  border-color: var(--red);
-  color: var(--red);
+  border-color: var(--tw-red);
+  color: var(--tw-red);
   font-weight: 700;
 }
 
-/* 지도 */
+/* 지도 — mapBox/mapLoading 380px height UNCHANGED */
 .mapBox {
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--tw-hair);
 }
 
 .mapLoading {
@@ -265,30 +283,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3ede5;
-  color: var(--muted);
+  background: var(--tw-tint2);
+  color: var(--tw-muted);
   font-size: 13.5px;
   text-align: center;
   padding: 20px;
 }
 
+/* distance figure "약 X.Xkm" → mono + tabular-nums data treatment */
 .courseStats {
+  font-family: var(--tw-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
-  color: var(--muted);
+  color: var(--tw-muted);
   margin-top: 8px;
   min-height: 18px;
 }
 
 .mapNote {
   font-size: 12.5px;
-  color: var(--muted);
+  color: var(--tw-muted);
   margin-top: 8px;
 }
 
-/* 테이블 */
+/* 테이블 — editorial hairline treatment */
 .tblWrap {
   overflow-x: auto;
-  border: 1px solid var(--line);
+  border: 1px solid var(--tw-hair);
   border-radius: 12px;
   background: var(--card);
 }
@@ -296,7 +317,7 @@
 .tblWrap table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 560px;
+  min-width: 560px;        /* UNCHANGED — table scrolls horizontally in its own box */
   font-size: 13.5px;
 }
 
@@ -305,12 +326,15 @@
   padding: 9px 12px;
   text-align: left;
   vertical-align: top;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--tw-hair);
 }
 
 .tblWrap th {
-  background: #f6efe7;
+  background: var(--tw-tint);
   font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--tw-red-dark);     /* editorial header accent */
   white-space: nowrap;
 }
 
@@ -323,6 +347,6 @@
 }
 
 .zh {
-  color: var(--muted);
+  color: var(--tw-muted);
   font-size: 12px;
 }

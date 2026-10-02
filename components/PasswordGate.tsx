@@ -62,12 +62,10 @@ export default function PasswordGate({
           className={`${styles.card} ${shaking ? styles.shake : ""}`}
           onAnimationEnd={() => setShaking(false)}
         >
-          <div className={styles.emoji}>🏮</div>
-          <h3>우리만 보는 페이지예요</h3>
-          <p>비밀번호를 입력해 주세요</p>
           <input
             ref={inputRef}
             type="password"
+            aria-label="비밀번호"
             inputMode="numeric"
             maxLength={12}
             autoComplete="off"

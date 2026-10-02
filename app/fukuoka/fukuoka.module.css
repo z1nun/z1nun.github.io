@@ -1,5 +1,40 @@
+/* ============================================================
+   Fukuoka — Editorial Indigo theme (Seto Inland Sea at dusk)
+   Local theme vars only; app/globals.css :root is untouched.
+   Shared structure/type/spacing come from globals element
+   selectors + this module. See .claude/harness/design-system.md
+   ============================================================ */
+
+/* Page wrapper: transparent zero-box container that scopes the
+   local theme vars. Must NOT add padding/border/overflow so the
+   .summaryCard negative-margin overlap under the hero survives. */
+.page {
+  --fuk-paper: #fdfdfc;
+  --fuk-ink: #111111;
+  --fuk-muted: #6b7280;
+  --fuk-hair: #e2e2e0;
+  --fuk-accent: #1f3a93;        /* deep indigo — single accent */
+  --fuk-accent-strong: #152a6b; /* emphasis — total figure */
+  --fuk-accent-soft: #eef1ff;   /* soft highlight-row tint */
+  --fuk-grad: linear-gradient(135deg, #15235c 0%, #1f3a93 60%, #2f6aa3 125%);
+  --fuk-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Editorial text-selection detail (scoped to this page) */
+.page ::selection {
+  background: var(--fuk-accent);
+  color: #fff;
+}
+
+/* defensive link-color guard: any <a> under .page matches the local
+   indigo accent instead of global var(--sight) (.vjw a overrides within its scope) */
+.page a {
+  color: var(--fuk-accent);
+}
+
+/* ---------- Hero (the one expressive dark band) ---------- */
 .hero {
-  background: linear-gradient(135deg, #1f2a44 0%, #2a5d8f 65%, #4a7fb5 130%);
+  background: var(--fuk-grad);
   color: #fff;
   padding: 34px 18px 26px;
   text-align: center;
@@ -20,20 +55,24 @@
   font-size: 20px;
   letter-spacing: 6px;
   margin-bottom: 6px;
+  opacity: 0.9;
 }
 
+/* ---------- Wrap ---------- */
 .wrap {
   max-width: 720px;
   margin: 0 auto;
   padding: 0 14px 60px;
+  color: var(--fuk-ink);
 }
 
+/* ---------- Summary card (kicker label + body) ---------- */
 .summaryCard {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--sight);
+  border: 1px solid var(--fuk-hair);
+  border-left: 4px solid var(--fuk-accent);
   border-radius: 14px;
-  margin: -16px auto 0;
+  margin: -16px auto 0;          /* tuck under hero — preserved */
   max-width: 692px;
   padding: 14px 16px;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
@@ -42,7 +81,8 @@
 .summaryLabel {
   font-size: 12px;
   font-weight: 700;
-  color: var(--sight);
+  letter-spacing: 0.02em;
+  color: var(--fuk-accent);
   margin-bottom: 4px;
 }
 
@@ -50,16 +90,19 @@
   font-size: 13.5px;
 }
 
+/* ---------- Note (left-accent-border callout) ---------- */
 .note {
   font-size: 12.5px;
-  color: var(--muted);
+  color: var(--fuk-muted);
   margin-bottom: 8px;
+  border-left: 3px solid var(--fuk-accent);
+  padding-left: 10px;
 }
 
-/* 총 교통비 */
+/* ---------- Cost card (hairline-ruled rows) ---------- */
 .costCard {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--fuk-hair);
   border-radius: 14px;
   padding: 6px 16px 12px;
 }
@@ -69,14 +112,14 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 4px 12px;
-  flex-wrap: wrap;
+  flex-wrap: wrap;               /* 375px: wrap, never overflow */
   padding: 9px 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--fuk-hair);
 }
 
 .costItem {
   flex: 1 1 60%;
-  min-width: 0;
+  min-width: 0;                  /* allow shrink + wrap */
   font-size: 13.5px;
 }
 
@@ -86,7 +129,7 @@
 
 .costDetail {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--fuk-muted);
 }
 
 .costRight {
@@ -95,45 +138,68 @@
 }
 
 .costPrice {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--night);
-  white-space: nowrap;
+  color: var(--fuk-ink);
+  white-space: nowrap;           /* short figure */
 }
 
 .costTime {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 12.5px;
   font-weight: 700;
-  color: var(--sight);
-  white-space: nowrap;
+  color: var(--fuk-accent);
+  white-space: nowrap;           /* short figure */
 }
 
+/* Signature element: the one soft-indigo highlight band.
+   .costTotal + .costTimeTotal together form ONE continuous
+   full-bleed tint band. .costTotal keeps a SQUARE top (it
+   continues the hairline rows above); the bottom corners are
+   rounded on .costTimeTotal (the LAST tinted element) so the
+   single band rounds only at the true card bottom. */
 .costTotal {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  padding: 11px 0 2px;
+  gap: 4px 12px;
+  flex-wrap: wrap;
+  margin: 8px -16px 0;           /* bleed tint to card edges */
+  padding: 11px 16px 6px;
+  background: var(--fuk-accent-soft);
   font-size: 15px;
 }
 
 .costTotal b {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 17px;
-  color: var(--red);
+  font-weight: 800;
+  color: var(--fuk-accent-strong);
 }
 
 .costTimeTotal {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
   font-weight: 700;
-  color: var(--sight);
-  padding-bottom: 4px;
+  color: var(--fuk-accent);
+  margin: 0 -16px;               /* bleed: same band as .costTotal */
+  padding: 2px 16px 6px;         /* text aligns with card content */
+  background: var(--fuk-accent-soft);
+  border-radius: 0 0 14px 14px;  /* round only the true band bottom */
 }
 
 .costNote {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--fuk-muted);
+  padding-top: 6px;
 }
 
-/* 스텝 (가는 길 / 도착 후 / 오는 길) */
+/* ---------- Steps ---------- */
 .steps {
   display: grid;
   gap: 10px;
@@ -141,21 +207,23 @@
 
 .step {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--fuk-hair);
   border-radius: 12px;
   padding: 12px 14px;
 }
 
 .stepTime {
   display: inline-block;
-  background: var(--sight);
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
+  background: var(--fuk-accent);
   color: #fff;
   font-size: 11.5px;
   font-weight: 700;
   padding: 2px 10px;
   border-radius: 999px;
   margin-bottom: 6px;
-  white-space: nowrap;
+  white-space: nowrap;           /* short figure */
 }
 
 .stepBody {
@@ -168,7 +236,7 @@
   font-size: 14px;
 }
 
-/* 항공편 */
+/* ---------- Flights ---------- */
 .flights {
   display: grid;
   gap: 10px;
@@ -183,7 +251,7 @@
 
 .flight {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--fuk-hair);
   border-radius: 12px;
   padding: 12px 14px;
   font-size: 13px;
@@ -194,15 +262,17 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 4px 10px;
-  flex-wrap: wrap;
+  flex-wrap: wrap;               /* 375px: wrap, never overflow */
   font-size: 14px;
 }
 
 .flightPrice {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
   font-weight: 700;
-  color: var(--night);
+  color: var(--fuk-ink);
   font-size: 13px;
-  white-space: nowrap;
+  white-space: nowrap;           /* short figure */
 }
 
 .flightTime {
@@ -212,11 +282,11 @@
 
 .flightNote {
   margin-top: 3px;
-  color: var(--muted);
+  color: var(--fuk-muted);
   font-size: 12.5px;
 }
 
-/* 주의사항 */
+/* ---------- Facts (주의사항) ---------- */
 .facts {
   display: grid;
   grid-template-columns: 1fr;
@@ -231,7 +301,7 @@
 
 .fact {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--fuk-hair);
   border-radius: 12px;
   padding: 12px 14px;
   font-size: 13.5px;
@@ -241,21 +311,162 @@
   display: block;
   margin-bottom: 3px;
   font-size: 14px;
+  color: var(--fuk-accent-strong);
 }
 
+/* ---------- Plan compare ---------- */
+.plans {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 600px) {
+  .plans {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.plan {
+  background: var(--card);
+  border: 1px solid var(--fuk-hair);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+}
+
+.planHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 10px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.planBadge {
+  flex-shrink: 0;
+  background: var(--fuk-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.planCost {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fuk-accent-strong);
+}
+
+.planPoints {
+  margin: 6px 0 0 16px;
+}
+
+.planPoints li {
+  margin-bottom: 4px;
+}
+
+/* ---------- Visit Japan Web ---------- */
+.vjw {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--card);
+  border: 1px solid var(--fuk-hair);
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 13px;
+}
+
+.vjwQrBox {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.vjwQr {
+  display: block;
+  border: 1px solid var(--fuk-hair);
+  border-radius: 8px;
+}
+
+.vjwQrLabel {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--fuk-muted);
+  max-width: 116px;
+}
+
+.vjwBody {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.vjwPoints {
+  margin: 0 0 8px 16px;
+}
+
+.vjwPoints li {
+  margin-bottom: 4px;
+}
+
+.vjwLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+.vjw a {
+  color: var(--fuk-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.vjw a:hover {
+  text-decoration: underline;
+}
+
+.vjwBlogs {
+  font-size: 12.5px;
+  color: var(--fuk-muted);
+}
+
+/* ---------- Placeholder (reserved for MAIN session content) ---------- */
 .placeholder {
   background: var(--card);
-  border: 1.5px dashed var(--line);
+  border: 1.5px dashed var(--fuk-hair);
   border-radius: 12px;
   padding: 24px 14px;
   text-align: center;
-  color: var(--muted);
+  color: var(--fuk-muted);
   font-size: 13.5px;
 }
 
+/* ---------- Footer ---------- */
 .footer {
   text-align: center;
-  color: var(--muted);
+  color: var(--fuk-muted);
   font-size: 12px;
   margin-top: 40px;
+}
+
+/* ---------- Whisper-quiet card hover (pointer devices, motion-safe) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .step,
+  .flight,
+  .fact {
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .step:hover,
+  .flight:hover,
+  .fact:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
+  }
 }

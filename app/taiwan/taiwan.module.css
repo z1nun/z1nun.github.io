@@ -1,5 +1,54 @@
+/* ============================================================
+   Taiwan — "Lantern Red" (refined red/amber editorial)
+   Local --tw-* theme; app/globals.css :root untouched.
+   NOTE: .hero and .wrap are SIBLINGS (see page.tsx fragment),
+   so the identical --tw-* block is declared on BOTH. Keep in sync.
+   TaiwanPlanner.module.css inherits --tw-* via .wrap (it renders
+   inside .wrap). JS-set colors (.num/.chip bg) are NOT themed here.
+   ============================================================ */
+
+/* ---- shared local theme block (DUPLICATED on .hero + .wrap) ---- */
+.hero,
+.wrap {
+  --tw-paper: #faf6f1;
+  --tw-ink: #2c2420;
+  --tw-muted: #8a7a6d;
+  --tw-hair: #e8ddd2;
+  --tw-red: #c0392b;
+  --tw-red-dark: #96281b;
+  --tw-amber: #e67e22;
+  --tw-red-soft: #fdf1e3;
+  --tw-amber-line: #f0d9ba;
+  --tw-amber-ink: #7a5b2e;
+  --tw-info: #2a5d8f;
+  --tw-info-soft: #eaf3ff;
+  --tw-info-line: #c3ddf5;
+  --tw-tint: #f6efe7;
+  --tw-tint2: #f3ede5;
+  --tw-btn-face: #fbf8f4;
+  --tw-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* 전역 a{color:var(--sight)} 의존 제거 — 링크색을 로컬 테마에 고정 */
+.hero a,
+.wrap a {
+  color: var(--tw-info);
+}
+
+/* editorial text-selection detail (scoped to taiwan surfaces) */
+.hero ::selection,
+.wrap ::selection {
+  background: var(--tw-red);
+  color: #fff;
+}
+
 .hero {
-  background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, var(--amber) 130%);
+  background: linear-gradient(
+    135deg,
+    var(--tw-red-dark) 0%,
+    var(--tw-red) 60%,
+    var(--tw-amber) 130%
+  );
   color: #fff;
   padding: 34px 18px 26px;
   text-align: center;
@@ -26,13 +75,15 @@
   max-width: 720px;
   margin: 0 auto;
   padding: 0 14px 60px;
+  color: var(--tw-ink);
 }
 
 .flightCard {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--tw-hair);
+  border-left: 4px solid var(--tw-red);   /* editorial left-accent (matches fukuoka summaryCard) */
   border-radius: 14px;
-  margin: -16px auto 0;
+  margin: -16px auto 0;                     /* tuck under hero — preserved */
   max-width: 692px;
   padding: 14px 16px;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
@@ -56,18 +107,22 @@
 
 .legLabel {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--tw-muted);
 }
 
+/* flight times = mono data figures */
 .legTime {
+  font-family: var(--tw-mono);
+  font-variant-numeric: tabular-nums;
   font-weight: 700;
   font-size: 15px;
   margin-top: 2px;
+  color: var(--tw-ink);
 }
 
 .legRoute {
   font-size: 12.5px;
-  color: var(--muted);
+  color: var(--tw-muted);
 }
 
 .tips {
@@ -84,7 +139,7 @@
 
 .tip {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--tw-hair);
   border-radius: 12px;
   padding: 12px 14px;
   font-size: 13.5px;
@@ -94,11 +149,12 @@
   display: block;
   margin-bottom: 3px;
   font-size: 14px;
+  color: var(--tw-red-dark);
 }
 
 .footer {
   text-align: center;
-  color: var(--muted);
+  color: var(--tw-muted);
   font-size: 12px;
   margin-top: 40px;
 }
