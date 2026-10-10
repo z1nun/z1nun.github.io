@@ -46,8 +46,8 @@ export const EXPENSES: Expense[] = [
     icon: "🏨",
     title: "엔 호텔 하카타 · 2박",
     detail: "하카타역 앞(博多駅前 3-30-25) · 공항·야타이·쇼핑 전부 도보권",
-    cost: "90,000원",
-    sub: "2인 180,000원",
+    cost: "90,905원",
+    sub: "2인 181,809원",
     confirmed: true,
   },
   {
@@ -61,7 +61,7 @@ export const EXPENSES: Expense[] = [
 ];
 
 export const EXPENSE_TOTAL = {
-  total: "1인 약 54.9만원",
+  total: "1인 약 55만원",
   sub: "2인 약 104만원",
   note: "항공·리무진 왕복 + 숙소 3박(유후인 1 + 하카타 2) 전부 확정. 하카타 숙박세(1인 1박 200엔)·현지 교통·식비·입장료는 별도",
 };
@@ -178,8 +178,8 @@ export const STAYS: Stay[] = [
     name: "엔 호텔 하카타 (en HOTEL Hakata)",
     area: "하카타역 앞 · 3-30-25 Hakataekimae, Hakata-Ku",
     room: "하카타역 도보권 — 야타이·쇼핑·마지막 날 공항 이동 모두 편리",
-    price: "180,000원",
-    price1: "90,000원",
+    price: "181,809원",
+    price1: "90,905원",
     booking: "2박",
     note: "유후인 체크아웃(1/13 11시) 후 후쿠오카 복귀 → 체크인. 1/15은 10:00 비행기라 07시경 체크아웃하고 바로 공항行. 후쿠오카시 숙박세 별도 — 1인 1박 200엔(2만엔 미만), 2박 2인 약 800엔 현지 결제",
     q: "en HOTEL Hakata 博多駅前 3-30-25",
