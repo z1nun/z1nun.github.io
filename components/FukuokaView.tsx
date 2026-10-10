@@ -2,8 +2,8 @@
 
 import styles from "@/app/fukuoka/fukuoka.module.css";
 import {
-  COST_ROWS,
-  COST_TOTAL,
+  EXPENSES,
+  EXPENSE_TOTAL,
   OUTBOUND,
   OUT_FLIGHTS,
   RETURN_FLIGHTS,
@@ -21,7 +21,7 @@ import ScrollFx from "@/components/ScrollFx";
 
 // Left scroll-spy nav items (desktop) — order matches section ids s1..s6.
 const NAV = [
-  { id: "s1", n: "01", t: "총비용" },
+  { id: "s1", n: "01", t: "여행 경비" },
   { id: "s2", n: "02", t: "가는 날" },
   { id: "s3", n: "03", t: "오는 날" },
   { id: "s4", n: "04", t: "숙소" },
@@ -113,33 +113,47 @@ export default function FukuokaView() {
           <div className="sechead">
             <div className="secno">01</div>
             <div>
-              <h2>💰 총 교통비 (1인)</h2>
-              <div className="why">리무진 + 왕복 비행기 — 전부 더한 실비용.</div>
+              <h2>💰 여행 경비 (1인)</h2>
+              <div className="why">항공권 · 리무진 · 숙소 — 날짜 순서로.</div>
             </div>
           </div>
-          <div className={styles.costCard}>
-            {COST_ROWS.map((r) => (
-              <div key={r.item} className={styles.costRow}>
-                <div className={styles.costItem}>
-                  <b>{r.item}</b>
-                  <span className={styles.costDetail}>{r.detail}</span>
+          <ul className={`${styles.timeline} rv`}>
+            {EXPENSES.map((e, i) => (
+              <li key={`${e.title}-${i}`} className={styles.tItem}>
+                <span className={styles.tNode} aria-hidden />
+                <div className={styles.tContent}>
+                  <div className={styles.stepTime}>{e.date}</div>
+                  <div className={styles.expRow}>
+                    <div className={styles.expBody}>
+                      <b>
+                        {e.icon} {e.title}
+                        {!e.confirmed && (
+                          <span className={styles.expTbdTag}>미정</span>
+                        )}
+                      </b>
+                      <span className={styles.expDetail}>{e.detail}</span>
+                    </div>
+                    <div className={styles.expCostBox}>
+                      <div
+                        className={`${styles.expCost} ${e.confirmed ? "" : styles.expCostTbd}`}
+                      >
+                        {e.cost}
+                      </div>
+                      {e.sub && <div className={styles.expSub}>{e.sub}</div>}
+                    </div>
+                  </div>
                 </div>
-                <div className={styles.costRight}>
-                  <div className={styles.costPrice}>{r.cost}</div>
-                  <div className={styles.costTime}>⏱ {r.time}</div>
-                </div>
-              </div>
+              </li>
             ))}
-            <div className={styles.costTotal}>
-              <span>합계</span>
-              <div className={styles.costRight}>
-                <b>{COST_TOTAL.total}</b>
-                <div className={styles.costTime}>⏱ {COST_TOTAL.time}</div>
-              </div>
+          </ul>
+          <div className={styles.expTotal}>
+            <span className={styles.expTotalLabel}>확정분 합계</span>
+            <div className={styles.costRight}>
+              <b className={styles.expTotalMain}>{EXPENSE_TOTAL.total}</b>
+              <div className={styles.expSub}>{EXPENSE_TOTAL.sub}</div>
             </div>
-            <div className={styles.costTimeTotal}>⏱ {COST_TOTAL.totalTime}</div>
-            <div className={styles.costNote}>{COST_TOTAL.note}</div>
           </div>
+          <div className={styles.costNote}>{EXPENSE_TOTAL.note}</div>
         </section>
 
         <section id="s2" className="rv">

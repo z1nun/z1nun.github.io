@@ -3,39 +3,66 @@
 // ✈️ 항공권 확정: 에어부산 BX0453/BX0446 · 예약번호 KE2DBG · 왕복 2인 661,200원 (2026-10-10 예매)
 // 기타 가격 조사일: 2026-10-02 (리무진·지하철은 예매 시점에 재확인)
 
-export interface CostRow {
-  item: string;
+// 여행 경비 — 날짜 순서 타임라인 (항공권·리무진·숙소만, 확정 기준)
+export interface Expense {
+  date: string; // "1/12 (화)"
+  icon: string; // 이모지
+  title: string;
   detail: string;
   cost: string; // 1인 기준
-  time: string; // 소요시간
+  sub?: string; // 2인 총액 등 보조 표기
+  confirmed: boolean;
 }
 
-export const COST_ROWS: CostRow[] = [
+export const EXPENSES: Expense[] = [
   {
-    item: "공항리무진 춘천 ↔ 인천공항 (왕복)",
-    detail: "편도 29,000원 × 2 (티머니GO 실측, T1·T2 동일) · 앱 예매",
-    cost: "58,000원",
-    time: "편도 2시간 51분",
+    date: "1/12 (화)",
+    icon: "🚌",
+    title: "공항리무진 — 춘천 → 인천 T2",
+    detail: "편도 · 티머니GO/버스타고 앱 예매",
+    cost: "29,000원",
+    confirmed: true,
   },
   {
-    item: "에어부산 왕복 (인천 ↔ 후쿠오카) ✅확정",
-    detail: "BX0453/BX0446 · 예약번호 KE2DBG · 위탁 15kg 포함 · 2인 661,200원",
+    date: "1/12 (화)",
+    icon: "✈️",
+    title: "에어부산 왕복 항공권",
+    detail: "BX0453/BX0446 · 예약 KE2DBG · 위탁 15kg 포함 · 왕복 1회 결제",
     cost: "330,600원",
-    time: "편도 약 1시간 40분",
+    sub: "2인 661,200원",
+    confirmed: true,
   },
   {
-    item: "후쿠오카공항 ↔ 시내 지하철 (왕복)",
-    detail: "하카타역까지 2정거장 · 260엔×2",
-    cost: "약 5,000원",
-    time: "편도 약 6분",
+    date: "1/12 (화)",
+    icon: "🏨",
+    title: "유후인 베소우 시키사이 · 1박",
+    detail: "킹 더블(금연) · 조식 불포함 · 예약 2610101622200042",
+    cost: "70,314원",
+    sub: "2인 140,628원",
+    confirmed: true,
+  },
+  {
+    date: "1/13~1/15",
+    icon: "🏨",
+    title: "하카타 시내 숙소 · 2박",
+    detail: "미예약 — 예약 확정되면 추가",
+    cost: "미정",
+    confirmed: false,
+  },
+  {
+    date: "1/15 (금)",
+    icon: "🚌",
+    title: "공항리무진 — 인천 T2 → 춘천",
+    detail: "편도 · 티머니GO/버스타고 앱 예매",
+    cost: "29,000원",
+    confirmed: true,
   },
 ];
 
-export const COST_TOTAL = {
-  total: "약 39만원",
-  time: "약 9시간",
-  totalTime: "왕복 순수 이동 합계 (리무진 왕복 약 5시간 40분 + 비행 왕복 약 3시간 25분)",
-  note: "항공권 확정(에어부산 왕복 2인 661,200원 = 1인 330,600원, 위탁 15kg 포함). 교통비 1인 합계 약 39만원, 2인이면 약 79만원. 리무진·지하철은 예매 시점에 재확인",
+export const EXPENSE_TOTAL = {
+  total: "1인 약 45.9만원",
+  sub: "2인 약 86만원",
+  note: "확정분(항공·리무진 왕복 + 유후인 1박) 합계. 하카타 2박·현지 교통·식비는 별도 — 예약 추가되면 갱신",
 };
 
 export interface Step {
