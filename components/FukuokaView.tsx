@@ -13,7 +13,6 @@ import {
   SPOT_CATEGORIES,
   SEASON_TIPS,
   STAYS,
-  STAY_TBD,
   type Flight,
   type Step,
 } from "@/lib/fukuoka-data";
@@ -191,7 +190,7 @@ export default function FukuokaView() {
             <div className="secno">04</div>
             <div>
               <h2>🏨 숙소</h2>
-              <div className="why">첫날 밤은 유후인 온천 료칸 — 이름을 누르면 구글맵이 열려요.</div>
+              <div className="why">유후인 1박 + 하카타 2박 — 이름을 누르면 구글맵이 열려요.</div>
             </div>
           </div>
           <div className={styles.stays}>
@@ -220,7 +219,6 @@ export default function FukuokaView() {
                 <div className={styles.stayNote}>{s.note}</div>
               </div>
             ))}
-            <div className={styles.stayTbd}>🛏 {STAY_TBD}</div>
           </div>
         </section>
 

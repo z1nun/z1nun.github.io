@@ -44,10 +44,11 @@ export const EXPENSES: Expense[] = [
   {
     date: "1/13~1/15",
     icon: "🏨",
-    title: "하카타 시내 숙소 · 2박",
-    detail: "미예약 — 예약 확정되면 추가",
-    cost: "미정",
-    confirmed: false,
+    title: "엔 호텔 하카타 · 2박",
+    detail: "하카타역 앞(博多駅前 3-30-25) · 공항·야타이·쇼핑 전부 도보권",
+    cost: "100,000원",
+    sub: "2인 200,000원",
+    confirmed: true,
   },
   {
     date: "1/15 (금)",
@@ -60,9 +61,9 @@ export const EXPENSES: Expense[] = [
 ];
 
 export const EXPENSE_TOTAL = {
-  total: "1인 약 45.9만원",
-  sub: "2인 약 86만원",
-  note: "확정분(항공·리무진 왕복 + 유후인 1박) 합계. 하카타 2박·현지 교통·식비는 별도 — 예약 추가되면 갱신",
+  total: "1인 약 55.9만원",
+  sub: "2인 약 106만원",
+  note: "항공·리무진 왕복 + 숙소 3박(유후인 1 + 하카타 2) 전부 확정. 현지 교통·식비·입장료는 별도",
 };
 
 export interface Step {
@@ -172,11 +173,19 @@ export const STAYS: Stay[] = [
     q: "由布院 別荘 四季彩",
     confirmed: true,
   },
+  {
+    night: "1/13(수) → 1/15(금) · 2박",
+    name: "엔 호텔 하카타 (en HOTEL Hakata)",
+    area: "하카타역 앞 · 3-30-25 Hakataekimae, Hakata-Ku",
+    room: "하카타역 도보권 — 야타이·쇼핑·마지막 날 공항 이동 모두 편리",
+    price: "200,000원",
+    price1: "100,000원",
+    booking: "2박",
+    note: "유후인 체크아웃(1/13 11시) 후 후쿠오카 복귀 → 체크인. 1/15은 10:00 비행기라 07시경 체크아웃하고 바로 공항行",
+    q: "en HOTEL Hakata 博多駅前 3-30-25",
+    confirmed: true,
+  },
 ];
-
-// 1/13~1/15(2박)은 하카타 시내 숙소 예정 — 예약 확정되면 카드 추가
-export const STAY_TBD =
-  "1/13(수) ~ 1/15(금) · 2박은 하카타 시내 숙소 예정 (미예약). 하카타역 도보권으로 잡으면 야타이·쇼핑·마지막 날 공항 이동이 전부 편함";
 
 export const CAUTIONS: { title: string; body: string }[] = [
   {
