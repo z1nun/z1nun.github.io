@@ -12,6 +12,8 @@ import {
   VJW,
   SPOT_CATEGORIES,
   SEASON_TIPS,
+  STAYS,
+  STAY_TBD,
   type Flight,
   type Step,
 } from "@/lib/fukuoka-data";
@@ -22,10 +24,11 @@ const NAV = [
   { id: "s1", n: "01", t: "총비용" },
   { id: "s2", n: "02", t: "가는 날" },
   { id: "s3", n: "03", t: "오는 날" },
-  { id: "s4", n: "04", t: "주의사항" },
-  { id: "s5", n: "05", t: "입국준비" },
-  { id: "s6", n: "06", t: "갈만한 곳" },
-  { id: "s7", n: "07", t: "일정" },
+  { id: "s4", n: "04", t: "숙소" },
+  { id: "s5", n: "05", t: "주의사항" },
+  { id: "s6", n: "06", t: "입국준비" },
+  { id: "s7", n: "07", t: "갈만한 곳" },
+  { id: "s8", n: "08", t: "일정" },
 ] as const;
 
 // Single-left-rail vertical timeline (shared by 가는 날 / 오는 날).
@@ -56,12 +59,18 @@ function FlightCards({ flights }: { flights: readonly Flight[] }) {
           <div className={styles.flightHead}>
             <b>
               {f.airline} {f.flight}
+              {f.confirmed && <span className={styles.flightBadge}>확정</span>}
             </b>
             {f.price1 && <span className={styles.flightPrice}>{f.price1}</span>}
+            {f.date && !f.price1 && (
+              <span className={styles.flightPrice}>{f.date}</span>
+            )}
           </div>
           <div className={styles.flightTime}>
             {f.dep} → {f.arr}
+            {f.dur && <span className={styles.flightDur}> · {f.dur}</span>}
           </div>
+          {f.baggage && <div className={styles.flightMeta}>{f.baggage}</div>}
           {f.note && <div className={styles.flightNote}>{f.note}</div>}
         </div>
       ))}
@@ -94,9 +103,9 @@ export default function FukuokaView() {
         <div className={`${styles.summaryCard} rv`}>
           <div className={styles.summaryLabel}>🧭 이동 루트</div>
           <div className={styles.summaryBody}>
-            <b>춘천 ↔ 인천공항</b> 공항리무진 (첫차 04:00 / 귀가 17~18시 차편) ·{" "}
-            <b>인천 ↔ 후쿠오카</b> 왕복 비행기 (가는 날 오전편 · 오는 날
-            오후편) — 운전 없이 끝까지 대중교통
+            <b>춘천 ↔ 인천 T2</b> 공항리무진 (가는 날 06시경 / 오는 날 13시경 차편) ·{" "}
+            <b>인천 ↔ 후쿠오카</b> 에어부산 왕복 (가는 날 11:10 출발 · 오는 날
+            10:00 출발) — 운전 없이 끝까지 대중교통
           </div>
         </div>
 
@@ -138,12 +147,12 @@ export default function FukuokaView() {
             <div className="secno">02</div>
             <div>
               <h2>🛫 1/12(화) — 가는 날</h2>
-              <div className="why">첫차 리무진 → 오전 비행기 → 점심부터 Day 1.</div>
+              <div className="why">06시 리무진 → 11:10 비행기 → 점심부터 Day 1.</div>
             </div>
           </div>
           <Timeline steps={OUTBOUND} />
           <p className={styles.note} style={{ marginTop: 12 }}>
-            아침 출발편 후보 — 가격은 왕복 총액 기준으로 01 섹션 참고
+            ✅ 확정 항공편 — 예약번호 KE2DBG
           </p>
           <FlightCards flights={OUT_FLIGHTS} />
         </section>
@@ -153,12 +162,12 @@ export default function FukuokaView() {
             <div className="secno">03</div>
             <div>
               <h2>🛬 1/15(금) — 오는 날</h2>
-              <div className="why">오후편 귀국 → 당일 춘천 귀가. 저녁편은 공항 1박 전제.</div>
+              <div className="why">오전편 귀국 → 이른 오후 춘천 귀가. 마지막 날은 이동일.</div>
             </div>
           </div>
           <Timeline steps={RETURN_STEPS} />
           <p className={styles.note} style={{ marginTop: 12 }}>
-            귀국편 후보 — 당일 귀가 기준은 LJ456 (리무진 막차 ~22:30)
+            ✅ 확정 항공편 — 10:00 출발이라 1/15 관광은 거의 없음
           </p>
           <FlightCards flights={RETURN_FLIGHTS} />
         </section>
@@ -166,6 +175,44 @@ export default function FukuokaView() {
         <section id="s4" className="rv">
           <div className="sechead">
             <div className="secno">04</div>
+            <div>
+              <h2>🏨 숙소</h2>
+              <div className="why">첫날 밤은 유후인 온천 료칸 — 이름을 누르면 구글맵이 열려요.</div>
+            </div>
+          </div>
+          <div className={styles.stays}>
+            {STAYS.map((s) => (
+              <div key={s.booking} className={styles.stay}>
+                <div className={styles.stayNight}>
+                  {s.night}
+                  {s.confirmed && <span className={styles.flightBadge}>확정</span>}
+                </div>
+                <div className={styles.stayHead}>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {s.name} ↗
+                  </a>
+                  <span className={styles.stayArea}>{s.area}</span>
+                </div>
+                <div className={styles.stayRoom}>{s.room}</div>
+                <div className={styles.stayPriceRow}>
+                  <b className={styles.stayPrice}>{s.price}</b>
+                  <span className={styles.stayPrice1}>1인 {s.price1}</span>
+                  <span className={styles.stayBooking}>{s.booking}</span>
+                </div>
+                <div className={styles.stayNote}>{s.note}</div>
+              </div>
+            ))}
+            <div className={styles.stayTbd}>🛏 {STAY_TBD}</div>
+          </div>
+        </section>
+
+        <section id="s5" className="rv">
+          <div className="sechead">
+            <div className="secno">05</div>
             <div>
               <h2>⚠️ 주의사항</h2>
               <div className="why">예매 전 꼭 확인할 것들.</div>
@@ -181,9 +228,9 @@ export default function FukuokaView() {
           </div>
         </section>
 
-        <section id="s5" className="rv">
+        <section id="s6" className="rv">
           <div className="sechead">
-            <div className="secno">05</div>
+            <div className="secno">06</div>
             <div>
               <h2>📱 입국 준비 — Visit Japan Web</h2>
               <div className="why">출발 전 미리 등록하면 입국이 빨라져요.</div>
@@ -229,13 +276,13 @@ export default function FukuokaView() {
           </div>
         </section>
 
-        <section id="s6" className="rv">
+        <section id="s7" className="rv">
           <div className="sechead">
-            <div className="secno">06</div>
+            <div className="secno">07</div>
             <div>
               <h2>📍 갈만한 곳</h2>
               <div className="why">
-                하카타 숙소 기준 — 이름을 누르면 구글맵이 열려요.
+                하카타 기준 (1/12 밤은 유후인) — 이름을 누르면 구글맵이 열려요.
               </div>
             </div>
           </div>
@@ -277,21 +324,24 @@ export default function FukuokaView() {
           ))}
         </section>
 
-        <section id="s7" className="rv">
+        <section id="s8" className="rv">
           <div className="sechead">
-            <div className="secno">07</div>
+            <div className="secno">08</div>
             <div>
               <h2>🗓 여행 일정</h2>
-              <div className="why">항공권 확정 후 날짜별 코스가 들어갈 자리.</div>
+              <div className="why">항공·숙소 확정 — 날짜 틀이 잡혔어요.</div>
             </div>
           </div>
           <div className={styles.placeholder}>
-            항공권 확정 후 날짜별 일정 + 코스 빌더가 여기에 들어갈 예정 ✍️
+            ✈️ 틀: <b>1/12(화)</b> 12:50 도착 → 유후인行, 온천 료칸 1박 ·{" "}
+            <b>1/13(수)</b> 유후인 오전(긴린코) → 후쿠오카 복귀, 하카타 숙박 ·{" "}
+            <b>1/14(목)</b> 후쿠오카 풀데이(쇼핑·짐 정리 마무리) · <b>1/15(금)</b>{" "}
+            오전 이동일(10:00 출발). 날짜별 코스 빌더가 여기에 들어갈 예정 ✍️
           </div>
         </section>
 
         <footer className={styles.footer}>
-          가격은 2026-10-02 조사 기준 — 예매 시점에 다시 확인하기 🧡
+          ✈️ 항공권 확정(2026-10-10, 에어부산 KE2DBG) · 리무진·지하철 가격은 2026-10-02 조사 기준 🧡
         </footer>
       </div>
 

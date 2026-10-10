@@ -346,7 +346,7 @@
 
 @media (min-width: 600px) {
   .flights {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 }
 
@@ -356,6 +356,31 @@
   border-radius: 12px;
   padding: 12px 14px;
   font-size: 13px;
+}
+
+.flightBadge {
+  display: inline-block;
+  margin-left: 7px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--fuk-ink);
+  color: var(--card);
+  font-size: 10.5px;
+  font-weight: 700;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+.flightDur {
+  color: var(--fuk-muted);
+  font-weight: 500;
+}
+
+.flightMeta {
+  margin-top: 3px;
+  color: var(--fuk-ink);
+  font-size: 12.5px;
+  font-weight: 600;
 }
 
 .flightHead {
@@ -748,4 +773,105 @@
   margin-top: 2px;
   color: var(--fuk-muted);
   font-size: 12.5px;
+}
+
+/* ---------- 숙소 (Stays) ---------- */
+.stays {
+  display: grid;
+  gap: 10px;
+}
+
+.stay {
+  background: var(--card);
+  border: 1px solid var(--fuk-hair);
+  border-left: 4px solid var(--fuk-accent);
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-size: 13px;
+}
+
+.stayNight {
+  font-family: var(--fuk-mono);
+  font-size: 11.5px;
+  color: var(--fuk-muted);
+  margin-bottom: 4px;
+}
+
+.stayHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 10px;
+  flex-wrap: wrap;
+  font-size: 15px;
+}
+
+.stayHead a {
+  font-weight: 700;
+  color: var(--fuk-accent);
+  text-decoration: none;
+}
+
+.stayHead a:hover {
+  text-decoration: underline;
+}
+
+.stayArea {
+  font-family: var(--fuk-mono);
+  font-size: 11px;
+  color: var(--fuk-muted);
+  white-space: nowrap;
+}
+
+.stayRoom {
+  margin-top: 4px;
+  color: var(--fuk-ink);
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+.stayPriceRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+}
+
+.stayPrice {
+  font-family: var(--fuk-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--fuk-accent-strong);
+  font-size: 15px;
+}
+
+.stayPrice1 {
+  font-family: var(--fuk-mono);
+  font-size: 12px;
+  color: var(--fuk-muted);
+}
+
+.stayBooking {
+  font-family: var(--fuk-mono);
+  font-size: 11px;
+  color: var(--fuk-muted);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.stayNote {
+  margin-top: 6px;
+  color: var(--fuk-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.stayTbd {
+  background: var(--fuk-accent-soft);
+  border-radius: 10px;
+  padding: 11px 13px;
+  color: var(--fuk-muted-strong);
+  font-size: 12.5px;
+  line-height: 1.55;
 }
